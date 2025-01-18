@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 12:05:23 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/18 21:38:37 by akloster         ###   ########.fr       */
+/*   Updated: 2025/01/19 00:24:00 by akloster         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,6 @@ void	set_vector(double vector[2], double x, double y);
 void	rotation(t_player *player, double a);
 void	move_player(char **map, t_player *player, int keycode);
 void	event_hook(t_data *data);
-void	print_player(t_player *player, char *msg); // <---- delete!!
 void	translation(char **map, t_player *player, int keycode);
 int	init_textures(t_data *data);
 void	free_all(t_data *data);
