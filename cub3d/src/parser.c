@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 20:50:36 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/01/18 16:53:27 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:34:36 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,28 @@ int check_v(t_map *map, int x)
 {
     int y;
 
-    while (map->map_tab[0][x++])
+    while (map->map_tab[0][x])
     {
         y = 0;
         while (y < map->height)
         {
             if (y == 0 && !check_char(map->map_tab[y][x], "1 "))
-                return (printf("v not goed 1 \n"),0);
+                return (0);
             if (map->map_tab[y][x] == ' ')
             {
                 if (y > 0 && map->map_tab[y - 1][x] != '1')
-                    return (printf("v not goed 2\n"), 0);
+                    return (0);
                 while (y < map->height && map->map_tab[y][x] == ' ')
                     y++;
                 if (y < map->height && map->map_tab[y][x] != '1')
-                    return (printf("v not goed 3\n"),0);
+                    return (0);
             }
             if (y < map->height)
                 y++;
         }
         if (!check_char(map->map_tab[y - 1][x], "1 "))
-            return (printf("v not goed 4\n"),0);
+            return (0);
+        x++;
     }
     return (1);
 }
@@ -92,7 +93,12 @@ int check_h(t_map *map, int y)
     }
     return (1);
 }
-
+int is_space(char c)
+{
+    if (c == 32 || (c >= 9 && c <= 13))
+		return(1);
+    return(0);
+}
 int check_valid_line(char *line)
 {
     int i;
@@ -100,12 +106,12 @@ int check_valid_line(char *line)
     i = 0;
     while (line[i])
     {
-        if (line[i] == '1' || line[i] == '0' || line[i] == 'W' ||
-            line[i] == 'E' || line[i] == 'S' || line[i] == 'N' || line[i] == ' ')
-            return (1);
+        if (line[i] != '1' && line[i] != '0' && line[i] != 'W' &&
+            line[i] != 'E' && line[i] != 'S' && line[i] != 'N' && !is_space(line[i]))
+            return (0);
         i++;
     }
-    return (0); 
+    return (1); 
 }
 
 void get_raw_data(t_data *data, int fd)
@@ -119,7 +125,7 @@ void get_raw_data(t_data *data, int fd)
         {    
             if(!check_valid_line(line) || !check_infos(data->info))
             {
-                ft_error("invalid input\n");
+                ft_error("invalid input");
                 exit(1);
             }
             data->raw_map->map_arr = add_to_line(data->raw_map->map_arr, line);

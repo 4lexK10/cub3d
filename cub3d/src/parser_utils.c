@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 15:06:11 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/01/18 16:50:27 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:28:36 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	resize_map(t_map *map)
 	{
 		map->map_tab[i] = adapt_tab(map->map_tab[i], w_max);
 		if (!map->map_tab[i])
-			ft_error("Err Malloc \n");
+			ft_error("Err Malloc");
 		i++;
 	}
 	map->height = i;
