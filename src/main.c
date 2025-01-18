@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:49:34 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/18 18:28:17 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/01/18 19:30:34 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,8 @@ void	init_parsing(t_data *data, int fd)
 	//check existence + validity of files 
     get_raw_data(data, fd);//fill fd into **raw_map
     data->map = data->raw_map->map_tab;
-    //  printf("\nMap Layout now:\n");
-    // for (int i = 0; data->map && data->map[i]; i++)
-    //     printf("%s\n", data->map[i]); // a voir how to allocate
     //check extension
 	//check validity  RGB - Txture - map
-	//player position a voir avec alberto 
 }
 void	init_data(t_data *data, char *path)
 {   
@@ -53,65 +49,31 @@ void	init_data(t_data *data, char *path)
     data->nbr_column = 0;
     data->raw_map->player = 0;
 }
-
-// int	main(int ac, char **av)
-// {
-// 	t_data data;
-// 	int	fd;
-
-// 	//ac & test check 
-// 	fd = open(av[1], O_RDONLY);
-// 	//fd error 
-// 	init_data(&data, av[1]);
-// 	init_parsing(&data, fd);
-// 	//free + close fd
-//free t_map and t_info 
-// }
-
-////////////////////////////TESTTTT//////////////////////////////////////////////////////
-
-
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-    t_data data;
+	t_data	data;
     int fd;
 
-    if (ac != 2)
-    {
-        fprintf(stderr, "Usage: %s <map_file.cub>\n", av[0]);
-        return (EXIT_FAILURE);
-    }
-
- 
+	(void) av;
+	if (ac != 2)
+		return (ft_error("error: incorrect number of arguments"));
     fd = open(av[1], O_RDONLY);
     if (fd < 0)
     {
         perror("Error opening file");
         return (EXIT_FAILURE);
     }
-
-
+    ft_memset(&data, 0, sizeof(t_data));
     init_data(&data, av[1]);
     init_parsing(&data, fd);
-
-    printf("Parsed Textures:\n");
-    printf("North: %s\n", data.info->texture_N);
-    printf("South: %s\n", data.info->texture_S);
-    printf("West: %s\n", data.info->texture_W);
-    printf("East: %s\n", data.info->texture_E);
-
-    printf("\nRGB Values:\n");
-    printf("Floor: %lx\n", data.info->c_floor_hex);
-    printf("Sky: %lx\n", data.info->c_sky_hex);
-
-    printf("\nRawMap Layout:\n");
-    for (int i = 0; data.raw_map->map_tab && data.raw_map->map_tab[i]; i++)
-        printf("%s\n", data.raw_map->map_tab[i]);
-    //  printf("\nMap Layout:\n");
-    // for (int i = 0; data.map && data.map[i]; i++)
-    //     printf("%s\n", data.map[i]);
-
-    if (data.info)
+	
+	if (init_mlx(&data) || init_textures(&data))
+		return (EXIT_FAILURE);	
+	raycasting(&data, START);
+	event_hook(&data);	
+	mlx_loop(data.mlx);
+    //a free dans la loop
+      if (data.info)
     {
         free(data.info->texture_N);
         free(data.info->texture_S);
@@ -127,6 +89,5 @@ int main(int ac, char **av)
         free(data.raw_map);
     }
     close(fd);
-
-    return (1);
+	return (EXIT_SUCCESS);
 }

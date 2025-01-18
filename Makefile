@@ -3,60 +3,60 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: linaboumahdi <linaboumahdi@student.42.f    +#+  +:+       +#+         #
+#    By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/06 17:54:38 by akloster          #+#    #+#              #
-#    Updated: 2025/01/08 13:10:36 by linaboumahd      ###   ########.fr        #
+#    Updated: 2025/01/18 19:31:29 by lboumahd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-RM          = rm -rf
-CC          = cc
-CFLAGS      = -Wall -Wextra -Werror -Iincludes
 
-SRC_DIR     = src/
-SRC         = $(wildcard $(SRC_DIR)*.c)
+RM				=	rm -rf
 
-GNL_DIR     = GNL/
-GNL_SRC     = $(wildcard $(GNL_DIR)*.c)
+SRC_DIR				=	src/
 
-# Headers
-HEADERS     = includes/cub3d.h GNL/get_next_line.h
+SRC				=	main.c mlx_handling.c error_handling.c	\
+					raycasting.c vector_handling.c		\
+					rendering.c tools.c texture_handling.c	\
+					throw_aways.c 				\
 
-LIBft       = libft/libft.a
+HEADERS				=	includes/cub3d.h
 
-OBJ_DIR     = objs/
-SRC_OBJ     = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRC))
-GNL_OBJ     = $(patsubst $(GNL_DIR)%.c, $(OBJ_DIR)%.o, $(GNL_SRC))
-OBJ         = $(SRC_OBJ) $(GNL_OBJ)
+LIBft				=	libft/libft.a
 
-NAME        = cub3d
+OBJ_DIR				=	objs/
 
-all: $(NAME)
+OBJ				=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
-$(NAME): $(OBJ_DIR) $(OBJ)
-	@make -C ./libft
-	$(CC) $(OBJ) $(LIBft) -o $(NAME)
+CC				=	cc
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADERS)
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+CFLAGS				=	-Wall -Wextra -Werror 
 
-$(OBJ_DIR)%.o: $(GNL_DIR)%.c $(HEADERS)
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+NAME				=	cub3D
+
+$(NAME):			$(OBJ_DIR) $(OBJ) 
+				make -C./libft
+				$(CC) $(OBJ) $(LIBft) -fsanitize=address -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+
+all:				$(NAME)
+
+$(OBJ_DIR)%.o:			$(SRC_DIR)%.c $(HEADERS)
+				@mkdir -p $(dir $@)
+				$(CC) $(CFLAGS) -Iincludes -I/usr/include -Imlx_linux -O3 -c $< -o $@
+
 
 $(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
+				@mkdir -p $(OBJ_DIR)
 
 clean:
-	@make clean -C ./libft
-	$(RM) $(OBJ_DIR)
+				make clean -C./libft
+				$(RM) $(OBJ_DIR)
 
-fclean: clean
-	@make fclean -C ./libft
-	$(RM) $(NAME)
+fclean:				clean
+				make fclean -C./libft
+				$(RM) $(NAME) $(OBJ_DIR)
 
-re: fclean all
+re:				fclean $(NAME)
 
-.PHONY: all clean fclean re
+
+.PHONY:			all clean fclean re

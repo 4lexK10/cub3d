@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 12:05:23 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/18 18:56:44 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/01/18 19:38:07 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <math.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <stdbool.h>
 # include <unistd.h>
 // #include "mlx.h"
 # include "../libft/libft.h"
@@ -26,15 +27,57 @@
 # define WIN_HEIGHT 480
 # define X 0
 # define Y 1
+# define ESC_KEY 0xff1b
+# define W_KEY 0x0077 //is AZERTY now
+# define A_KEY 0x0061 //is AZERTY now
+# define S_KEY 0x0073
+# define D_KEY 0x0064
+# define START 0x0
+# define LEFT_ARROW 0xff51
+# define RIGHT_ARROW 0xff53
+# define KEY_DOWN 2
+# define FOV 0.66666
+# define MOVE_SPEED 0.1
 
 typedef struct s_img
 {
-	void	*ptr;
+	void	*ptr_img;
 	char	*addr;
 	int	bpp;
 	int	line_length;
 	int	endian;
+	int	width;
+	int	height;
+	int	*data;
 }	t_img;
+
+typedef struct s_wall
+{	
+	int	h;
+	int	start;
+	int	end;
+	double	x;
+	int	tex_X;
+	int	tex_Y;
+	double	pos;
+	double	step;
+	
+}	t_wall;
+
+typedef struct	s_ray
+{
+	double		cameraX;
+	double		cast[2];
+	double		side_dist[2];
+	double		delta_dist[2];
+	double		perp_dist;
+	int		step[2];
+	int		side;
+	bool		hit;
+	int		map_x;
+	int		map_y;
+}	t_ray;
+
 
 typedef struct s_player
 {
@@ -43,19 +86,20 @@ typedef struct s_player
 	float plane[2];
 }	t_player;
 
-typedef struct s_info{
-	t_img	img;
-	char	*path;
-	int		width;
-	int height;
-	unsigned long c_floor_hex;
-	unsigned long c_sky_hex;
-	char	*texture_N;
-	char	*texture_S;
-	char	*texture_W;
-	char	*texture_E;
+typedef struct	s_dictionary
+{
+	char			code;
+	unsigned int		color;
+	struct s_dictionary	*next;
+}	t_dictionary;
 
-} t_info;
+typedef struct	s_texture
+{
+	char		*path;
+	char		*pixels;
+	int		*pixies;
+	t_dictionary	*dico;
+}	t_texture;
 
 typedef struct s_map
 {
@@ -68,6 +112,28 @@ typedef struct s_map
 	int				player;
 } t_map;
 
+typedef struct	s_texture
+{
+	char		*path;
+	int		*pixies;
+}	t_texture;
+
+typedef struct s_info{
+	t_img	img;
+	char	*path;
+	int		width;
+	int height;
+	unsigned long c_floor_hex;
+	unsigned long c_sky_hex;
+	char	*texture_N;
+	char	*texture_S;
+	char	*texture_W;
+	char	*texture_E;
+	t_texture	texture_N;
+	t_texture	texture_S;
+	t_texture	texture_W;
+	t_texture	texture_E;
+} t_info;
 typedef struct s_data
 {
 	char	**map;
@@ -78,17 +144,25 @@ typedef struct s_data
 	void		*mlx;
 	void		*win;
 	int			nbr_column;
+	t_player	player;
 }	t_data;
 
-
-
 int	init_mlx(t_data *data);
-int raycasting(t_data *data);
+int	raycasting(t_data *data, int keycode);
 int	ft_error(char *str);
 void	get_player_vector(t_data *data, t_player *player);
-void	set_vector(float vector[2], float x, float y);
-
-//main
+int	init_frame(t_data *data, t_img *frame);
+void	render_column(t_data *data, t_img *frame, t_ray *ray, int x);
+double	absf(double nbr);
+void	pre_init(t_player *player, t_ray *ray, int x);
+void	set_vector(double vector[2], double x, double y);
+void	rotation(t_player *player, double a);
+void	move_player(char **map, t_player *player, int keycode);
+void	event_hook(t_data *data);
+void	print_player(t_player *player, char *msg); // <---- delete!!
+void	translation(char **map, t_player *player, int keycode);
+int	init_textures(t_data *data);
+void	free_all(t_data *data);
 void	init_parsing(t_data *data, int fd);
 void	init_data(t_data *data, char *path);
 
