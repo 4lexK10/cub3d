@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:49:34 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/18 19:30:34 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:41:45 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	init_info(t_info *info)
 void	init_parsing(t_data *data, int fd)
 {
 	//check existence + validity of files 
-    get_raw_data(data, fd);//fill fd into **raw_map
+    get_raw_data(data, fd);
     data->map = data->raw_map->map_tab;
+    close(fd);
     //check extension
-	//check validity  RGB - Txture - map
 }
 void	init_data(t_data *data, char *path)
 {   
@@ -35,8 +35,6 @@ void	init_data(t_data *data, char *path)
     data->raw_map = malloc(sizeof(t_map));
 	if (!data->raw_map)
 		ft_error("Mem allocation\n");
-	//first_clean(path);
-   // data->raw_map->line_count = get_number_of_lines(path);
 	data->raw_map->height = 0;
 	data->raw_map->width = 0;
 	data->info = malloc(sizeof(t_info)); // free !!!!
@@ -88,6 +86,6 @@ int	main(int ac, char **av)
         free(data.raw_map->map_tab);
         free(data.raw_map);
     }
-    close(fd);
+
 	return (EXIT_SUCCESS);
 }
