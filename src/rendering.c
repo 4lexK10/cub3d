@@ -6,7 +6,7 @@
 /*   By: akloster <akloster@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 17:28:40 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/14 17:10:59 by akloster         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:45:44 by akloster         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ void	render_column(t_data *data, t_img *frame, t_ray *ray, int x)
 //		printf("wall %d ray->perp_disti %f start %d\n", wall.h, ray->perp_dist, wall.start);
 	while (++y < wall.start)
 	{
-		put_pixel(frame, x, y, data->info.color_C);
+		put_pixel(frame, x, y, data->info->c_sky_hex);
 	}
 	y = wall.end;
 	while (++y < WIN_HEIGHT)
-		put_pixel(frame, x, y, data->info.color_F);
+		put_pixel(frame, x, y, data->info->c_floor_hex);
 //	if (!x)
 //		printf("!rendering\n");
 }

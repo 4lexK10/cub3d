@@ -6,7 +6,7 @@
 #    By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/06 17:54:38 by akloster          #+#    #+#              #
-#    Updated: 2025/01/18 19:31:29 by lboumahd         ###   ########.fr        #
+#    Updated: 2025/01/18 20:26:58 by akloster         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ SRC_DIR				=	src/
 SRC				=	main.c mlx_handling.c error_handling.c	\
 					raycasting.c vector_handling.c		\
 					rendering.c tools.c texture_handling.c	\
-					throw_aways.c 				\
+					throw_aways.c first_infos.c parser.c	\
+					parser_uttils.c rgb.c
 
 HEADERS				=	includes/cub3d.h
 

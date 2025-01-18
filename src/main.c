@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:49:34 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/18 19:30:34 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:50:39 by akloster         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	init_info(t_info *info)
 {
-    info->c_floor_hex = -1;
-    info->c_sky_hex = -1;
+	info->c_floor_hex = -1;
+	info->c_sky_hex = -1;
 	info->texture_E = NULL;
 	info->texture_N = NULL;
 	info->texture_S = NULL;
@@ -49,6 +49,15 @@ void	init_data(t_data *data, char *path)
     data->nbr_column = 0;
     data->raw_map->player = 0;
 }
+
+static void	convert(t_data *data)
+{
+	data->info->tex_N.path = data->info->texture_N;
+	data->info->tex_S.path = data->info->texture_S;
+	data->info->tex_E.path = data->info->texture_E;
+	data->info->tex_W.path = data->info->texture_W;
+}
+
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -57,37 +66,37 @@ int	main(int ac, char **av)
 	(void) av;
 	if (ac != 2)
 		return (ft_error("error: incorrect number of arguments"));
-    fd = open(av[1], O_RDONLY);
-    if (fd < 0)
-    {
-        perror("Error opening file");
-        return (EXIT_FAILURE);
-    }
-    ft_memset(&data, 0, sizeof(t_data));
-    init_data(&data, av[1]);
-    init_parsing(&data, fd);
-	
+	fd = open(av[1], O_RDONLY);
+	if (fd < 0)
+	{
+		perror("Error opening file");
+		return (EXIT_FAILURE);
+	}
+	ft_memset(&data, 0, sizeof(t_data));
+	init_data(&data, av[1]);
+	init_parsing(&data, fd);	
+	close(fd);
+	convert(&data);
 	if (init_mlx(&data) || init_textures(&data))
 		return (EXIT_FAILURE);	
 	raycasting(&data, START);
 	event_hook(&data);	
 	mlx_loop(data.mlx);
-    //a free dans la loop
-      if (data.info)
-    {
-        free(data.info->texture_N);
-        free(data.info->texture_S);
-        free(data.info->texture_W);
-        free(data.info->texture_E);
-        free(data.info);
-    }
-    if (data.raw_map)
-    {
+	//a free dans la loop
+	if (data.info)
+	{
+		free(data.info->texture_N);
+		free(data.info->texture_S);
+		free(data.info->texture_W);
+		free(data.info->texture_E);
+		free(data.info);
+	}
+	if (data.raw_map)
+	{
         for (int i = 0; data.raw_map->map_tab && data.raw_map->map_tab[i]; i++)
             free(data.raw_map->map_tab[i]);
         free(data.raw_map->map_tab);
         free(data.raw_map);
     }
-    close(fd);
 	return (EXIT_SUCCESS);
 }

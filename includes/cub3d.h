@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 12:05:23 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/18 19:38:07 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:46:51 by akloster         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,21 +86,6 @@ typedef struct s_player
 	float plane[2];
 }	t_player;
 
-typedef struct	s_dictionary
-{
-	char			code;
-	unsigned int		color;
-	struct s_dictionary	*next;
-}	t_dictionary;
-
-typedef struct	s_texture
-{
-	char		*path;
-	char		*pixels;
-	int		*pixies;
-	t_dictionary	*dico;
-}	t_texture;
-
 typedef struct s_map
 {
     char            *line;
@@ -118,7 +103,8 @@ typedef struct	s_texture
 	int		*pixies;
 }	t_texture;
 
-typedef struct s_info{
+typedef struct s_info
+{
 	t_img	img;
 	char	*path;
 	int		width;
@@ -129,11 +115,12 @@ typedef struct s_info{
 	char	*texture_S;
 	char	*texture_W;
 	char	*texture_E;
-	t_texture	texture_N;
-	t_texture	texture_S;
-	t_texture	texture_W;
-	t_texture	texture_E;
+	t_texture	tex_N;
+	t_texture	tex_S;
+	t_texture	tex_W;
+	t_texture	tex_E;
 } t_info;
+
 typedef struct s_data
 {
 	char	**map;
