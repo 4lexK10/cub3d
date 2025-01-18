@@ -6,7 +6,7 @@
 /*   By: akloster <akloster@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 17:28:40 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/18 20:45:44 by akloster         ###   ########.fr       */
+/*   Updated: 2025/01/18 21:03:03 by akloster         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ static void	put_pixel(t_img *frame, int x, int y, unsigned int color)
 static unsigned int	get_color(t_data *data, t_ray *ray, int x, int y)
 {
 	if (ray->side && ray->cast[Y] < 0)
-		return (data->info.texture_S.pixies[y * TEX_WIDTH + x]);
+		return (data->info->tex_S.pixies[y * TEX_WIDTH + x]);
 	else if (ray->side && ray->cast[Y] > 0)
-		return (data->info.texture_N.pixies[y * TEX_WIDTH + x]);
+		return (data->info->tex_N.pixies[y * TEX_WIDTH + x]);
 	else if (!ray->side && ray->cast[X] > 0)
-		return (data->info.texture_W.pixies[y * TEX_WIDTH + x]);
+		return (data->info->tex_W.pixies[y * TEX_WIDTH + x]);
 	else if (!ray->side && ray->cast[X] < 0)
-		return (data->info.texture_E.pixies[y * TEX_WIDTH + x]);
+		return (data->info->tex_E.pixies[y * TEX_WIDTH + x]);
 	return (0x000000);
 }
 

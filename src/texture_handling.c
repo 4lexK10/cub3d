@@ -6,7 +6,7 @@
 /*   By: akloster <akloster@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:03:04 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/18 20:40:14 by akloster         ###   ########.fr       */
+/*   Updated: 2025/01/18 21:06:41 by akloster         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	load_img(t_data *data, t_texture *tex, char *path)
 	return (EXIT_SUCCESS);
 }
 
-static int	get_texture(t_data *data, t_texture *tex)
+static int	gety_texture(t_data *data, t_texture *tex)
 {
 	int		fd;
 
@@ -50,10 +50,10 @@ static int	get_texture(t_data *data, t_texture *tex)
 
 int	init_textures(t_data *data)
 {
-	if (get_texture(data, &data->info->tex_N)
-		|| get_texture(data, &data->info->tex_S)
-		|| get_texture(data, &data->info->tex_E)
-		|| get_texture(data, &data->info->tex_W))
+	if (gety_texture(data, &data->info->tex_N)
+		|| gety_texture(data, &data->info->tex_S)
+		|| gety_texture(data, &data->info->tex_E)
+		|| gety_texture(data, &data->info->tex_W))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 12:05:23 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/18 20:46:51 by akloster         ###   ########.fr       */
+/*   Updated: 2025/01/18 21:14:09 by akloster         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include <unistd.h>
-// #include "mlx.h"
+# include "mlx.h"
 # include "../libft/libft.h"
 # include "../GNL/get_next_line.h"
 
 # define WIN_WIDTH 640
 # define WIN_HEIGHT 480
+# define TEX_WIDTH 64
+# define TEX_HEIGHT 64
 # define X 0
 # define Y 1
 # define ESC_KEY 0xff1b
@@ -81,9 +83,9 @@ typedef struct	s_ray
 
 typedef struct s_player
 {
-	float pos[2];
-	float dir[2];
-	float plane[2];
+	double pos[2];
+	double dir[2];
+	double plane[2];
 }	t_player;
 
 typedef struct s_map

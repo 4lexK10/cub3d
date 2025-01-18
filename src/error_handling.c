@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:50:53 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/18 19:39:26 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:57:56 by akloster         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,11 @@ static void	free_texture(t_texture *tex)
 
 void	free_all(t_data *data)
 {
-	// free map
+	// free map 
+	// set og tex path to null
 	mlx_destroy_window(data->mlx, data->win);
-	free_texture(data->info->texture_N);
-	free_texture(data->info->texture_S);
-	free_texture(data->info->texture_W);
-	free_texture(data->info->texture_E);
+	free_texture(&data->info->tex_N);
+	free_texture(&data->info->tex_S);
+	free_texture(&data->info->tex_W);
+	free_texture(&data->info->tex_E);
 }
