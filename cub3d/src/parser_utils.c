@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 15:06:11 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/01/15 17:02:06 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/01/18 16:50:27 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,35 +48,84 @@ char    *add_to_line(char *map_line, char *line)
 	return (arr);
 }
 
+char	*adapt_tab(char *map_line, int width)
+{
+	char *str;
+	
+	if ((int)ft_strlen(map_line) <= width)
+	{
+		str = malloc(sizeof(char) * width + 1);		
+		if (!str)
+			return (NULL);
+		ft_memset(str, ' ', width);
+	    str[width] = '\0';
+    	if (map_line)
+    	{
+        	ft_memcpy(str, map_line, ft_strlen(map_line));
+       		free(map_line);
+    	}
+    	return (str);
+	}
+	return(map_line);
+}
+
+void	resize_map(t_map *map)
+{
+	int	i;
+	int j;
+	int w_max;
+	
+	i = 0;
+	w_max = 0;
+	while (map->map_tab[i])
+	{
+		j = 0;
+		while (map->map_tab[i][j])
+			j++;
+		if (j > w_max)
+			w_max = j;
+		i++;
+	}
+	i = 0;
+	while (map->map_tab[i])
+	{
+		map->map_tab[i] = adapt_tab(map->map_tab[i], w_max);
+		if (!map->map_tab[i])
+			ft_error("Err Malloc \n");
+		i++;
+	}
+	map->height = i;
+}
+
+void	check_player(char *map_arr, t_map *map)
+{
+	int i;
+
+	i = 0;
+	while(map_arr[i] && map_arr)
+	{
+		if(map_arr[i] == 'N' || map_arr[i] == 'S'
+		|| map_arr[i] == 'E' || map_arr[i] == 'W')
+			map->player++;
+		i++;
+	}
+	if (map->player != 1)
+	{
+		ft_error("too many or no player detected");
+		exit(1);
+	}	
+}
 void    change_to_map_tab(t_map *map)
 {
-    map->map_tab = ft_split(map->map_arr, ';');
-    //resize_map(map);
-    free(map->map_arr);
+	if(!map || !map->map_arr)
+	{	
+		ft_error("empty map");
+		exit(1);
+	}
+	check_player(map->map_arr, map);
+	map->map_tab = ft_split(map->map_arr, ';');
+	resize_map(map);
+	free(map->map_arr);
     map->map_arr = NULL;
-    //fiix size???
 }
 
-/*
-//making check data easyyyyyy
-void fix_size_map(t_map *map)
-{
-    int i = 0;
-
-    set_size_data(map, map->map_tab, 0, 0);
-    if (map->height == 0 && map->width == 0)
-       ft_error("Error\nOnly one player is required on the map\n");
-
-    while (map->map_tab[i])
-    {
-        if (ft_strlen_cub3d(map->map_tab[i]) < map->width)
-        {
-            map->map_tab[i] = ft_resize_line(map->map_tab[i], map->width);
-            if (!map->map_tab[i])
-               ft_error("Malloc error\n");
-        }
-        i++;
-    }
-}
-
-*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linaboumahdi <linaboumahdi@student.42.f    +#+  +:+       +#+        */
+/*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:49:34 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/08 13:24:09 by linaboumahd      ###   ########.fr       */
+/*   Updated: 2025/01/18 16:43:41 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_parsing(t_data *data, int fd)
 {
 	//check existence + validity of files 
     get_raw_data(data, fd);//fill fd into **raw_map
-	data->map = data->raw_map->map_tab;
+    data->map = data->raw_map->map_tab;
     //  printf("\nMap Layout now:\n");
     // for (int i = 0; data->map && data->map[i]; i++)
     //     printf("%s\n", data->map[i]); // a voir how to allocate
@@ -51,6 +51,7 @@ void	init_data(t_data *data, char *path)
     data->mlx = NULL;
     data->win = NULL;
     data->nbr_column = 0;
+    data->raw_map->player = 0;
 }
 
 // int	main(int ac, char **av)
@@ -91,7 +92,6 @@ int main(int ac, char **av)
 
 
     init_data(&data, av[1]);
-
     init_parsing(&data, fd);
 
     printf("Parsed Textures:\n");
