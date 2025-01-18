@@ -6,7 +6,7 @@
 /*   By: akloster <akloster@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:03:04 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/18 21:06:41 by akloster         ###   ########.fr       */
+/*   Updated: 2025/01/19 00:44:24 by akloster         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static int	gety_texture(t_data *data, t_texture *tex)
 	int		fd;
 
 	fd = open(tex->path, O_RDONLY);
+	printf("%s\n", tex->path);
 	if (fd == -1)
 		return (ft_error("error: open failed"));
 	if (load_img(data, tex, tex->path))

@@ -1,0 +1,15 @@
+NO textures/detroit_D.xpm
+WE textures/forevernevermore.xpm
+SO textures/u_cant_lie.xpm
+EA textures/rain.xpm
+
+F 0,32,0
+C 120,0,16
+
+11111111
+11000001
+11000111
+10000W01111
+11111011
+11 111 1
+
