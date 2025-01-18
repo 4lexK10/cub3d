@@ -3,98 +3,98 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akloster <akloster@student.42.fr>          +#+  +:+       +#+        */
+/*   By: linaboumahdi <linaboumahdi@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 12:40:47 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/07 09:56:06 by akloster         ###   ########.fr       */
+/*   Created: 2024/05/03 14:21:25 by lboumahd          #+#    #+#             */
+/*   Updated: 2025/01/07 09:28:32 by linaboumahd      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_mod_strlen(char const *s)
+size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
-	if (!s)
+	if(!s)
 		return (0);
+
 	i = 0;
-	while (s[i] != '\0')
-		++i;
+	while (s[i])
+		i++;
 	return (i);
-}
+ }
 
-char	*ft_mod_strdup(char const *s, int i_nl)
+char *ft_strjoin(char *s1, char *s2)
 {
-	char	*str;
-	int		i;
+	char *res;
+	int i;
 
-	i = 0;
-	if (i_nl >= 0)
-		i = i_nl + 1;
-	else
-		i = ft_mod_strlen(s);
-	str = (char *)malloc((size_t)(1 + i) * sizeof(char));
-	if (!str)
-		return (NULL);
 	i = -1;
-	if (i_nl >= 0)
-		while (++i <= i_nl)
-			str[i] = s[i];
-	else
-		while (s[++i] != '\0')
-			str[i] = s[i];
-	str[i] = '\0';
-	return (str);
+	if(!s1)
+	{
+		s1 = malloc(1);
+		if(!s1)
+			return(NULL);
+		s1[0] = '\0';
+	}
+	res = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if(!res)
+	{
+		free(s1);
+		s1 = NULL;
+		return (NULL);
+	}
+	while(s1[++i])
+		res[i] = s1[i];
+	free(s1);
+	while(*s2)
+		res[i++] = *s2++;
+	res[i] = '\0';
+	return(res);
 }
-
-int	finder(char *s)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int	i;
-
-	i = 0;
-	if (s[i] == '\n')
-		return (0);
-	while (s[i] != '\n' && s[i] != '\0')
-		++i;
-	if (s[i] == '\n')
-		return (i);
-	else
-		return (-1);
-}
-
-char	*ft_mod_strjoin(char const *s1, char const *s2)
-{
+	char	*a;
 	size_t	i;
-	size_t	j;
-	char	*str;
+	size_t	len_p;
 
-	i = -1;
-	j = -1;
-	if (!s1 || !s2)
+	i = 0;
+	if (!s)
 		return (NULL);
-	str = (char *)malloc((ft_mod_strlen(s1) + ft_mod_strlen(s2) + 1) * sizeof(char));
-	if (!str)
+	len_p = ft_strlen(s);
+	if(((len_p - start) > len) && (start < len_p))
+		a = malloc(len + 1);
+	else if (start > len_p)
+		a = malloc(sizeof(char));
+	else
+		a = malloc((len_p - start) +1);
+	if (!a)
+	{	
 		return (NULL);
-	while (s1[++i] != '\0')
-		str[i] = s1[i];
-	while (s2[++j] != '\0')
-		str[i + j] = s2[j];
-	str[i + j] = '\0';
-	return (str);
+	}
+	if(start < len_p)
+	{
+		while (i < len && s[start])
+			a[i++] = s[start++];
+	}
+	a[i] = '\0';
+	return (a);
 }
 
-char	*clear(char **str, char **buf)
+
+char	*ft_strchr(const char *s, int c)
 {
-	if (str && *str)
+	if(!s)
+		return(NULL);
+	while (*s)
 	{
-		free(*str);
-		*str = NULL;
+		if (*s == (unsigned char)c)
+			return ((char *)s);
+		s++;
 	}
-	if (buf && *buf)
-	{
-		free(*buf);
-		*buf = NULL;
-	}
-	return (NULL);
+	if (*s == (unsigned char)c)
+		return ((char *)s);
+	else
+		return (NULL);
 }

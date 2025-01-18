@@ -3,121 +3,135 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akloster <akloster@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 12:40:41 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/04 21:09:22 by akloster         ###   ########.fr       */
+/*   Created: 2024/05/01 10:14:23 by lboumahd          #+#    #+#             */
+/*   Updated: 2025/01/15 16:06:15 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int	get_read(int fd, char **str)
+char *ft_update(char *remains)
 {
-	char	*buf;
-	char	*temp;
-	int		cnt;
+	char *new_remains;
+	int i;
+	int j;
 
-	buf = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buf)
-		return (-1);
-	if (*str && finder(*str) >= 0)
-		return (free(buf), -5);
-	cnt = read(fd, buf, BUFFER_SIZE);
-	if (cnt <= 0)
-		return (free(buf), cnt);
-	if (cnt > 0)
-		buf[cnt] = '\0';
-	if (!*str)
-		temp = ft_mod_strdup(buf, -1);
-	else
-		temp = ft_mod_strjoin(*str, buf);
-	clear(str, &buf);
-	if (!temp)
-		return (-1);
-	*str = temp;
-	return (cnt);
-}
-
-static char	*special_case(char **str)
-{
-	char	*res;
-	char	*temp;
-
-	temp = ft_mod_strdup((*str) + 1, -1);
-	if (!temp)
-		return (clear(str, NULL));
-	if (*temp == '\0')
-		clear(&temp, NULL);
-	res = ft_mod_strdup("\n", -1);
-	if (!res)
-		return (clear(str, &temp));
-	clear(str, NULL);
-	*str = temp;
-	return (res);
-}
-
-static char	*cleaner(char **str, char *nl)
-{
-	char	*temp;
-	char	*res;
-
-	if (!nl)
+	i = 0;
+	j = 0;
+	while (remains[i] && remains[i] != '\n')
+		i++;
+	if(!remains[i])
 	{
-		res = ft_mod_strdup(*str, -1);
-		clear(str, NULL);
-		if (!res)
-			return (NULL);
-		return (res);
+		free(remains);
+		return(NULL);
 	}
-	if (*nl == **str)
-		return (special_case(str));
+	new_remains = malloc(ft_strlen(remains) - i + 1);
+	if(!new_remains)
+	{
+		free(remains);
+		return(NULL);
+	}
+	i++;
+	while(remains[i])
+		new_remains[j++] = remains[i++];
+	new_remains[j] = '\0';
+	free(remains);
+	return(new_remains);
+}
+char *get_new_line(char *remains)
+{
+	char *new_line;
+	int i;
+
+	i = 0;
+	if(!remains[i])
+		return(NULL);
+	while(remains[i] && remains[i] != '\n')
+		i++;
+	if(remains[i] == '\n')
+		new_line = ft_substr(remains, 0, i + 1);
 	else
-		temp = ft_mod_strdup(++nl, -1);
-	if (!temp)
-		return (clear(str, NULL));
-	res = ft_mod_strdup(*str, finder(*str));
-	if (!res)
-		return (clear(str, &temp));
-	clear(str, NULL);
-	if (*temp == '\0')
-		clear(&temp, NULL);
-	*str = temp;
-	return (res);
+		new_line = ft_substr(remains, 0, i);
+	if (!new_line)
+		return (NULL);
+	return (new_line);
+}
+
+char *ft_read_file(char *remains, int fd)
+{
+	char *buffer;
+	int read_bytes;
+
+	read_bytes = 1;
+	buffer = malloc(BUFFER_SIZE + 1);
+	if(!buffer)
+	{
+		free(remains);
+		return (NULL);
+	}
+	while(read_bytes != 0 && !ft_strchr(remains, '\n'))
+	{
+		read_bytes = read(fd, buffer, BUFFER_SIZE);
+		if(read_bytes < 0)
+		{
+			free(buffer);
+			free(remains);
+			return(NULL);
+		}
+		buffer[read_bytes] = '\0';
+		remains = ft_strjoin(remains, buffer);
+	}
+	free(buffer);
+	return (remains);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*str;
-	char		*nl;
-	int			cnt;
+	char		*new_line;
+	static char	*remains;
 
-	if (BUFFER_SIZE >= INT_MAX || fd < 0 || BUFFER_SIZE < 1) 
-		return (NULL);
-	cnt = BUFFER_SIZE;
-	if (!str)
-		cnt = get_read(fd, &str);
-	if (!str || cnt <= 0)
-		return (clear(&str, NULL));
-	while (cnt > 0 && cnt == BUFFER_SIZE)
-		cnt = get_read(fd, &str);
-	if (cnt == -1)
-		return (clear(&str, NULL));
-	nl = str + finder(str);
-	if (finder(str) < 0)
-		nl = NULL;
-	return (cleaner(&str, nl));
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > INT_MAX || fd >= 256)
+		return NULL;
+	remains = ft_read_file(remains, fd);
+	if(!remains)
+		return(NULL);
+	new_line = get_new_line(remains);
+	if(!new_line)
+	{
+		if(remains)
+		{
+			free(remains);
+			remains = NULL;
+		}
+		return(NULL);
+	}
+	remains = ft_update(remains);
+	return(new_line);
 }
 
-/* #include <fcntl.h>
-#include <stdio.h>
 
-int main(void)
-{
-	int fd;
-	char *str;
-
-	fd = open("big", O_RDONLY);
-	while((str = get_next_line(fd)))
-		printf("%s", str);
-} */
+// // int    main(void)
+// {
+//     char    *line;
+//     int        i;
+//     int        fd;
+//     fd = open("file1.txt", O_RDONLY);
+//     i = 1;
+//     // while (i < 7)
+//     // {
+//     //     line = get_next_line(fd);
+//     //     printf("line [%02d]: %s", i, line);
+//     //     free(line);
+//     //     i++;
+//     // }
+// 	if (i == -1)
+// 	{
+// 		printf("<ERROR>\n");
+// 		close(fd);
+// 		return (-1);
+// 	}
+//     close(fd);
+//     return (0);
+// }
