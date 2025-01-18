@@ -6,13 +6,13 @@
 /*   By: linaboumahdi <linaboumahdi@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:21:25 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/01/07 09:28:32 by linaboumahd      ###   ########.fr       */
+/*   Updated: 2025/01/18 21:44:56 by akloster         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+size_t	ft_mod_strlen(const char *s)
 {
 	size_t	i;
 
@@ -25,7 +25,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
  }
 
-char *ft_strjoin(char *s1, char *s2)
+char *ft_mod_strjoin(char *s1, char *s2)
 {
 	char *res;
 	int i;
@@ -38,7 +38,7 @@ char *ft_strjoin(char *s1, char *s2)
 			return(NULL);
 		s1[0] = '\0';
 	}
-	res = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	res = malloc(ft_mod_strlen(s1) + ft_mod_strlen(s2) + 1);
 	if(!res)
 	{
 		free(s1);
@@ -53,7 +53,7 @@ char *ft_strjoin(char *s1, char *s2)
 	res[i] = '\0';
 	return(res);
 }
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_mod_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*a;
 	size_t	i;
@@ -62,7 +62,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	i = 0;
 	if (!s)
 		return (NULL);
-	len_p = ft_strlen(s);
+	len_p = ft_mod_strlen(s);
 	if(((len_p - start) > len) && (start < len_p))
 		a = malloc(len + 1);
 	else if (start > len_p)
@@ -83,7 +83,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 }
 
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_mod_strchr(const char *s, int c)
 {
 	if(!s)
 		return(NULL);

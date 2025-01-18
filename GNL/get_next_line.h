@@ -6,7 +6,7 @@
 /*   By: linaboumahdi <linaboumahdi@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:22:56 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/01/07 00:57:36 by linaboumahd      ###   ########.fr       */
+/*   Updated: 2025/01/18 21:47:00 by akloster         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ char	*get_next_line(int fd);
 char *ft_read_file(char *remains, int fd);
 char *get_new_line(char *remains);
 char *ft_update(char *remains);
-size_t	ft_strlen(const char *s);
-char *ft_strjoin(char *s1, char *s2);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strchr(const char *s, int c);
+size_t	ft_mod_strlen(const char *s);
+char *ft_mod_strjoin(char *s1, char *s2);
+char	*ft_mod_substr(char const *s, unsigned int start, size_t len);
+char	*ft_mod_strchr(const char *s, int c);
 
 #endif
 

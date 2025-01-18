@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 10:14:23 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/01/15 16:06:15 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/01/18 21:46:00 by akloster         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char *ft_update(char *remains)
 		free(remains);
 		return(NULL);
 	}
-	new_remains = malloc(ft_strlen(remains) - i + 1);
+	new_remains = malloc(ft_mod_strlen(remains) - i + 1);
 	if(!new_remains)
 	{
 		free(remains);
@@ -51,9 +51,9 @@ char *get_new_line(char *remains)
 	while(remains[i] && remains[i] != '\n')
 		i++;
 	if(remains[i] == '\n')
-		new_line = ft_substr(remains, 0, i + 1);
+		new_line = ft_mod_substr(remains, 0, i + 1);
 	else
-		new_line = ft_substr(remains, 0, i);
+		new_line = ft_mod_substr(remains, 0, i);
 	if (!new_line)
 		return (NULL);
 	return (new_line);
@@ -71,7 +71,7 @@ char *ft_read_file(char *remains, int fd)
 		free(remains);
 		return (NULL);
 	}
-	while(read_bytes != 0 && !ft_strchr(remains, '\n'))
+	while(read_bytes != 0 && !ft_mod_strchr(remains, '\n'))
 	{
 		read_bytes = read(fd, buffer, BUFFER_SIZE);
 		if(read_bytes < 0)
@@ -81,7 +81,7 @@ char *ft_read_file(char *remains, int fd)
 			return(NULL);
 		}
 		buffer[read_bytes] = '\0';
-		remains = ft_strjoin(remains, buffer);
+		remains = ft_mod_strjoin(remains, buffer);
 	}
 	free(buffer);
 	return (remains);
