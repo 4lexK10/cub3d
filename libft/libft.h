@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akloster <akloster@student.42.fr>          +#+  +:+       +#+        */
+/*   By: linaboumahdi <linaboumahdi@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:49:47 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/07 09:52:48 by akloster         ###   ########.fr       */
+/*   Updated: 2025/01/07 00:58:09 by linaboumahd      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
-# include "../GNL/get_next_line.h"
 
 typedef struct s_list
 {
@@ -47,7 +46,7 @@ char	**ft_split(char const *s, char c);
 char	*ft_strchr(char const *s, int c);
 char	*ft_strdup( char const*s1);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
-char	*ft_strjoin(char const *s1, char const *s2);
+//char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dst, char const *src, size_t size);
 size_t	ft_strlcpy(char *dst, char const *src, size_t size);
 size_t	ft_strlen(char const *s);

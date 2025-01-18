@@ -3,59 +3,60 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: akloster <akloster@student.s19.be>         +#+  +:+       +#+         #
+#    By: linaboumahdi <linaboumahdi@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/06 17:54:38 by akloster          #+#    #+#              #
-#    Updated: 2025/01/13 11:40:26 by akloster         ###   ########.fr        #
+#    Updated: 2025/01/08 13:10:36 by linaboumahd      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-RM				=	rm -rf
+RM          = rm -rf
+CC          = cc
+CFLAGS      = -Wall -Wextra -Werror -Iincludes
 
-SRC_DIR				=	src/
+SRC_DIR     = src/
+SRC         = $(wildcard $(SRC_DIR)*.c)
 
-SRC				=	main.c mlx_handling.c error_handling.c	\
-					raycasting.c vector_handling.c		\
-					rendering.c tools.c texture_handling.c	\
-					throw_aways.c 				\
+GNL_DIR     = GNL/
+GNL_SRC     = $(wildcard $(GNL_DIR)*.c)
 
-HEADERS				=	includes/cub3d.h
+# Headers
+HEADERS     = includes/cub3d.h GNL/get_next_line.h
 
-LIBft				=	libft/libft.a
+LIBft       = libft/libft.a
 
-OBJ_DIR				=	objs/
+OBJ_DIR     = objs/
+SRC_OBJ     = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRC))
+GNL_OBJ     = $(patsubst $(GNL_DIR)%.c, $(OBJ_DIR)%.o, $(GNL_SRC))
+OBJ         = $(SRC_OBJ) $(GNL_OBJ)
 
-OBJ				=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
+NAME        = cub3d
 
-CC				=	cc
+all: $(NAME)
 
-CFLAGS				=	-g3  #-Wall -Wextra -Werror 
+$(NAME): $(OBJ_DIR) $(OBJ)
+	@make -C ./libft
+	$(CC) $(OBJ) $(LIBft) -o $(NAME)
 
-NAME				=	cub3D
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADERS)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME):			$(OBJ_DIR) $(OBJ) 
-				make -C./libft
-				$(CC) $(OBJ) $(LIBft) -fsanitize=address -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
-
-all:				$(NAME)
-
-$(OBJ_DIR)%.o:			$(SRC_DIR)%.c $(HEADERS)
-				@mkdir -p $(dir $@)
-				$(CC) $(CFLAGS) -Iincludes -I/usr/include -Imlx_linux -O3 -c $< -o $@
-
+$(OBJ_DIR)%.o: $(GNL_DIR)%.c $(HEADERS)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
-				@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)
 
 clean:
-				make clean -C./libft
-				$(RM) $(OBJ_DIR)
+	@make clean -C ./libft
+	$(RM) $(OBJ_DIR)
 
-fclean:				clean
-				make fclean -C./libft
-				$(RM) $(NAME) $(OBJ_DIR)
+fclean: clean
+	@make fclean -C ./libft
+	$(RM) $(NAME)
 
-re:				fclean $(NAME)
+re: fclean all
 
-
-.PHONY:			all clean fclean re
+.PHONY: all clean fclean re
