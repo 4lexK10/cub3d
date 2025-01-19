@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:49:34 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/19 13:37:13 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/01/19 15:26:16 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,20 @@ void	init_data(t_data *data, char *path)
     (void)path;	
     data->raw_map = malloc(sizeof(t_map)); //tofree
 	if (!data->raw_map)
+	{
 		ft_error("Mem allocation\n");
+		exit (1);
+	}
+	ft_memset(data->raw_map, 0, sizeof(t_map));
 	data->raw_map->height = 0;
 	data->raw_map->width = 0;
 	data->info = malloc(sizeof(t_info)); //tofree
 	if (!data->info)
-	    ft_error("Mem allocation\n");
+	{
+		free(data->raw_map);
+		ft_error("Mem allocation\n");
+	}
+	ft_memset(data->info, 0, sizeof(t_info));
 	init_info(data->info);
 	data->file = NULL;
     data->mlx = NULL;
@@ -75,7 +83,7 @@ int	main(int ac, char **av)
 	}
 	ft_memset(&data, 0, sizeof(t_data));
 	init_data(&data, av[1]);
-	init_parsing(&data, fd);	
+	init_parsing(&data, fd);
 	close(fd);
 	convert(&data);
 	if (init_mlx(&data) || init_textures(&data))

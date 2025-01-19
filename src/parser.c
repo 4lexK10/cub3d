@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 20:50:36 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/01/18 18:34:36 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/01/19 15:26:47 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	check_char(char needle, char *haystack)
 int check_infos(t_info *infos)
 {
     if(!infos->texture_E || !infos->texture_N || !infos->texture_S || !infos->texture_W)
+        return (0);
+    if(infos->c_floor_hex == -1|| infos->c_sky_hex == -1)
         return (0);
     return(1);
 }
@@ -125,6 +127,7 @@ void get_raw_data(t_data *data, int fd)
         {    
             if(!check_valid_line(line) || !check_infos(data->info))
             {
+                free(line);
                 ft_error("invalid input");
                 exit(1);
             }

@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 21:58:01 by linaboumahd       #+#    #+#             */
-/*   Updated: 2025/01/19 13:33:17 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/01/19 15:20:23 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	get_first_info(t_map *map, t_info *info, char *line)
 		return (0);
 	}
 	free_split(split_line);
+	free(line);
 	return (1);
 }
 
