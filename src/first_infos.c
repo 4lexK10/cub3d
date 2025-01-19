@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 21:58:01 by linaboumahd       #+#    #+#             */
-/*   Updated: 2025/01/19 15:20:23 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/01/19 15:34:38 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ int	get_first_info(t_map *map, t_info *info, char *line)
 	if (map->map_arr)
 		return (0);
 	if (!line || (line[0] == '\n' && !line[1]))
+	{
+		free(line);
 		return (1);
+	}
 	split_line = ft_split(line, ' ');
 	if (!split_line || !split_line[0])
 	{
