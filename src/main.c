@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:49:34 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/18 19:30:34 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/01/19 11:42:36 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	init_info(t_info *info)
 {
     info->c_floor_hex = -1;
     info->c_sky_hex = -1;
-	info->texture_E = NULL;
-	info->texture_N = NULL;
-	info->texture_S = NULL;
-	info->texture_W = NULL;
+	info->text_E = NULL;
+	info->text_N = NULL;
+	info->text_N = NULL;
+	info->text_N = NULL;
 }
 void	init_parsing(t_data *data, int fd)
 {
@@ -75,10 +75,10 @@ int	main(int ac, char **av)
     //a free dans la loop
       if (data.info)
     {
-        free(data.info->texture_N);
-        free(data.info->texture_S);
-        free(data.info->texture_W);
-        free(data.info->texture_E);
+        free(data.info->text_N);
+        free(data.info->text_N);
+        free(data.info->text_N);
+        free(data.info->text_E);
         free(data.info);
     }
     if (data.raw_map)

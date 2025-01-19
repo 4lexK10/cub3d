@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_handling.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akloster <akloster@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:03:04 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/14 17:13:00 by akloster         ###   ########.fr       */
+/*   Updated: 2025/01/19 11:41:26 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	get_texture(t_data *data, t_texture *tex)
 
 int	init_textures(t_data *data)
 {
-	if (get_texture(data, &data->info.texture_N)
+	if (get_texture(data, &data->info->texture_N)
 		|| get_texture(data, &data->info.texture_S)
 		|| get_texture(data, &data->info.texture_E)
 		|| get_texture(data, &data->info.texture_W))

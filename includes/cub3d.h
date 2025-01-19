@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 12:05:23 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/18 19:38:07 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/01/19 11:52:24 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,13 @@ typedef struct	s_dictionary
 	struct s_dictionary	*next;
 }	t_dictionary;
 
-typedef struct	s_texture
-{
-	char		*path;
-	char		*pixels;
-	int		*pixies;
-	t_dictionary	*dico;
-}	t_texture;
+// typedef struct	s_texture
+// {
+// 	char		*path;
+// 	char		*pixels;
+// 	int		*pixies;
+// 	t_dictionary	*dico;
+// }	t_texture;
 
 typedef struct s_map
 {
@@ -125,15 +125,16 @@ typedef struct s_info{
 	int height;
 	unsigned long c_floor_hex;
 	unsigned long c_sky_hex;
-	char	*texture_N;
-	char	*texture_S;
-	char	*texture_W;
-	char	*texture_E;
+	char	*text_N;
+	char	*text_S;
+	char	*text_W;
+	char	*text_E;
 	t_texture	texture_N;
 	t_texture	texture_S;
 	t_texture	texture_W;
 	t_texture	texture_E;
 } t_info;
+
 typedef struct s_data
 {
 	char	**map;

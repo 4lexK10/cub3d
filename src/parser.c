@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 20:50:36 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/01/18 18:34:36 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/01/19 11:42:41 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_char(char needle, char *haystack)
 
 int check_infos(t_info *infos)
 {
-    if(!infos->texture_E || !infos->texture_N || !infos->texture_S || !infos->texture_W)
+    if(!infos->text_E || !infos->text_N || !infos->text_N || !infos->text_N)
         return (0);
     return(1);
 }

@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 21:58:01 by linaboumahd       #+#    #+#             */
-/*   Updated: 2025/01/19 11:42:24 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/01/19 11:42:49 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char *get_texture(char **split_line)
         path[path_len - 1] = '\0';
     return (path);
 }
+
 int	handle_textures_and_colors(t_info *info, char **split_line)
 {
 	if (!ft_strncmp(split_line[0], "NO", 3))
@@ -74,36 +75,10 @@ int	get_first_info(t_map *map, t_info *info, char *line)
 		return (0);
 	}
 	free_split(split_line);
+	if(!check_textures(info))
+	{
+		
+	}
 	return (1);
 }
-// int get_first_info(t_map *map, t_info *info, char *line)
-// {
-//     char **split_line;
 
-//     if(map->map_arr)
-//         return(0);
-//     if (!line || (line[0] == '\n' && !line[1]))
-//         return (1);
-//     split_line = ft_split(line, ' ');
-//     if (split_line[0] && !ft_strncmp(split_line[0], "NO", 3))
-//         info->text_N = get_texture(split_line);
-//     else if (split_line[0] && !ft_strncmp(split_line[0], "SO", 3))
-//         info->texture_S = get_texture(split_line);
-//     else if (split_line[0] && !ft_strncmp(split_line[0], "WE", 3))
-//         info->texture_W = get_texture(split_line);
-//     else if (split_line[0] && !ft_strncmp(split_line[0], "EA", 3))
-//         info->texture_E = get_texture(split_line);
-//     else if (split_line[0] && !ft_strncmp(split_line[0], "F", 2))
-//        // info->rgb_floor = get_rgb(split_line);
-//         info->c_floor[0] = 10;
-//     else if (split_line[0] && !ft_strncmp(split_line[0], "C", 2))
-//       //  info->rgb_sky = get_rgb(split_line);
-//         info->c_sky[0] = 10;  
-//     else
-//     {
-//         free_split(split_line);
-//         return (0);
-//     }
-//     free_split(split_line); 
-//     return (1);
-// }
