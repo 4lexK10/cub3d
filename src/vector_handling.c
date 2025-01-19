@@ -6,7 +6,7 @@
 /*   By: akloster <akloster@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 18:31:03 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/14 18:20:25 by akloster         ###   ########.fr       */
+/*   Updated: 2025/01/19 00:59:35 by akloster         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,12 @@ void	get_player_vector(t_data *data, t_player *player)
 
 	get_pos(data->map, &i, &j);
 	set_vector(player->pos, (double) j, (double) i);
-	//(data->map)[i][j] = '0'; <-- fixes unwanted wall of initial position
 	if (data->map[i][j - 1] == '1')
 		player->pos[X] += 0.05;
 	if (data->map[i - 1][j] == '1')
 		player->pos[Y] += 0.05;
 	set_FOV(player, data->map[i][j]);
+	(data->map)[i][j] = '0';
 }
 
 void	move_player(char **map, t_player *player, int keycode)
