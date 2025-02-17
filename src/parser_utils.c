@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 15:06:11 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/01/18 18:28:36 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/01/19 12:17:07 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	get_size(char *str)
 		i++;
 	return (i);
 }
+
 char    *add_to_line(char *map_line, char *line)
 {
     int		size;

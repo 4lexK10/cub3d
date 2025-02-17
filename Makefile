@@ -6,7 +6,7 @@
 #    By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/06 17:54:38 by akloster          #+#    #+#              #
-#    Updated: 2025/01/18 21:41:54 by akloster         ###   ########.fr        #
+#    Updated: 2025/02/17 19:49:37 by lboumahd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ NAME				=	cub3D
 #-g -fsanitize=address 
 $(NAME):			$(OBJ_DIR) $(OBJ) 
 				make -C./libft
-				$(CC) $(OBJ) $(LIBft) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+				$(CC) $(OBJ) $(LIBft) -g3 -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 all:				$(NAME)
 

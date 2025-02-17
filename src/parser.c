@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 20:50:36 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/01/18 18:34:36 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:25:55 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int check_infos(t_info *infos)
 {
     if(!infos->texture_E || !infos->texture_N || !infos->texture_S || !infos->texture_W)
         return (0);
+    if(infos->c_floor_hex == -1|| infos->c_sky_hex == -1)
+        return (0);
     return(1);
 }
 
-int check_v(t_map *map, int x)
+int check_v(t_map *map, int x, int y)
 {
-    int y;
-
     while (map->map_tab[0][x])
     {
         y = 0;
@@ -64,10 +64,8 @@ int check_v(t_map *map, int x)
     return (1);
 }
 
-int check_h(t_map *map, int y)
+int check_h(t_map *map, int y, int x)
 {
-    int x;
-    
     while (map->map_tab[y])
     {
         x = 0;
@@ -93,12 +91,14 @@ int check_h(t_map *map, int y)
     }
     return (1);
 }
+
 int is_space(char c)
 {
     if (c == 32 || (c >= 9 && c <= 13))
 		return(1);
     return(0);
 }
+
 int check_valid_line(char *line)
 {
     int i;
@@ -116,7 +116,6 @@ int check_valid_line(char *line)
 
 void get_raw_data(t_data *data, int fd)
 {
-    int y;
     char *line;
 
     while ((line = get_next_line(fd)))
@@ -125,6 +124,7 @@ void get_raw_data(t_data *data, int fd)
         {    
             if(!check_valid_line(line) || !check_infos(data->info))
             {
+                free(line);
                 ft_error("invalid input");
                 exit(1);
             }
@@ -133,8 +133,7 @@ void get_raw_data(t_data *data, int fd)
         }
     }
     change_to_map_tab(data->raw_map);
-    y = 0;
-    if(!check_h(data->raw_map, y) || !check_v(data->raw_map, y))
+    if(!check_h(data->raw_map, 0, 0) || !check_v(data->raw_map, 0, 0))
         {
             ft_error("map not closed");
             exit(1);

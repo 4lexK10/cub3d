@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 12:05:23 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/19 00:24:00 by akloster         ###   ########.fr       */
+/*   Updated: 2025/01/19 15:27:14 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ typedef struct s_info
 	char	*path;
 	int		width;
 	int height;
-	unsigned long c_floor_hex;
-	unsigned long c_sky_hex;
+	long c_floor_hex;
+	long c_sky_hex;
 	char	*texture_N;
 	char	*texture_S;
 	char	*texture_W;
@@ -157,10 +157,10 @@ void	init_data(t_data *data, char *path);
 //first_info
 int get_first_info(t_map *map, t_info *info, char *line);
 char *get_texture(char **split_line);
-unsigned long	process_rgb_input(char *line);
+long	process_rgb_input(char *line);
 //parser 
 void get_raw_data(t_data *data, int fd);
-int get_number_of_lines(char *path);
+int check_textures(t_info *info);
 //parser utils
 char    *add_to_line(char *map_line, char *line);
 void    change_to_map_tab(t_map *map);

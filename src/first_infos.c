@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   first_infos.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linaboumahdi <linaboumahdi@student.42.f    +#+  +:+       +#+        */
+/*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 21:58:01 by linaboumahd       #+#    #+#             */
-/*   Updated: 2025/01/08 01:27:39 by linaboumahd      ###   ########.fr       */
+/*   Updated: 2025/01/19 15:34:38 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,18 @@ int	handle_textures_and_colors(t_info *info, char **split_line)
 		return (0);
 	return (1);
 }
+int check_textures(t_info *info)
+{
+    if (!info->texture_N || access(info->texture_N, F_OK) != 0 || access(info->texture_N, R_OK) != 0)
+        return (0);
+    if (!info->texture_S || access(info->texture_S, F_OK) != 0 || access(info->texture_S, R_OK) != 0)
+        return (0);
+    if (!info->texture_W || access(info->texture_W, F_OK) != 0 || access(info->texture_W, R_OK) != 0)
+        return (0);
+    if (!info->texture_E || access(info->texture_E, F_OK) != 0 || access(info->texture_E, R_OK) != 0)
+        return (0); 
+    return (1);
+}
 
 int	get_first_info(t_map *map, t_info *info, char *line)
 {
@@ -61,7 +73,10 @@ int	get_first_info(t_map *map, t_info *info, char *line)
 	if (map->map_arr)
 		return (0);
 	if (!line || (line[0] == '\n' && !line[1]))
+	{
+		free(line);
 		return (1);
+	}
 	split_line = ft_split(line, ' ');
 	if (!split_line || !split_line[0])
 	{
@@ -74,36 +89,7 @@ int	get_first_info(t_map *map, t_info *info, char *line)
 		return (0);
 	}
 	free_split(split_line);
+	free(line);
 	return (1);
 }
-// int get_first_info(t_map *map, t_info *info, char *line)
-// {
-//     char **split_line;
 
-//     if(map->map_arr)
-//         return(0);
-//     if (!line || (line[0] == '\n' && !line[1]))
-//         return (1);
-//     split_line = ft_split(line, ' ');
-//     if (split_line[0] && !ft_strncmp(split_line[0], "NO", 3))
-//         info->texture_N = get_texture(split_line);
-//     else if (split_line[0] && !ft_strncmp(split_line[0], "SO", 3))
-//         info->texture_S = get_texture(split_line);
-//     else if (split_line[0] && !ft_strncmp(split_line[0], "WE", 3))
-//         info->texture_W = get_texture(split_line);
-//     else if (split_line[0] && !ft_strncmp(split_line[0], "EA", 3))
-//         info->texture_E = get_texture(split_line);
-//     else if (split_line[0] && !ft_strncmp(split_line[0], "F", 2))
-//        // info->rgb_floor = get_rgb(split_line);
-//         info->c_floor[0] = 10;
-//     else if (split_line[0] && !ft_strncmp(split_line[0], "C", 2))
-//       //  info->rgb_sky = get_rgb(split_line);
-//         info->c_sky[0] = 10;  
-//     else
-//     {
-//         free_split(split_line);
-//         return (0);
-//     }
-//     free_split(split_line); 
-//     return (1);
-// }
