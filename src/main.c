@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:49:34 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/19 15:26:16 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:38:45 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	init_info(t_info *info)
 }
 void	init_parsing(t_data *data, int fd)
 {
-	//check existence + validity of files 
-    get_raw_data(data, fd);//fill fd into **raw_map
+    get_raw_data(data, fd);
     data->map = data->raw_map->map_tab;
 	if (!check_textures(data->info))
 	{
 		ft_error("wrong textures");
 		exit(1);
 	}
+	//free t_map and tinfo
 }
 void	init_data(t_data *data, char *path)
 {   
@@ -89,9 +89,7 @@ int	main(int ac, char **av)
 	if (init_mlx(&data) || init_textures(&data))
 		return (EXIT_FAILURE);	
 	raycasting(&data, START);
-	event_hook(&data);	
-	mlx_loop(data.mlx);
-	//a free dans la loop
+	event_hook(&data);
 	if (data.info)
 	{
 		free(data.info->texture_N);
@@ -107,5 +105,8 @@ int	main(int ac, char **av)
         free(data.raw_map->map_tab);
         free(data.raw_map);
     }
+	mlx_loop(data.mlx);
+	//a free dans la loop
+
 	return (EXIT_SUCCESS);
 }
