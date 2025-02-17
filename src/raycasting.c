@@ -82,17 +82,9 @@ int raycasting(t_data *data, int keycode)
 			ray.perp_dist = ray.side_dist[Y] - ray.delta_dist[Y];
 		else
 			ray.perp_dist = ray.side_dist[X] - ray.delta_dist[X];
-	//	if (!x)
-	//		printf("!raycasting\n");
 		render_column(data, &frame, &ray, x);
 	}
 	mlx_put_image_to_window(data->mlx, data->win, frame.ptr_img, 0, 0);
 	mlx_destroy_image(data->mlx, frame.ptr_img);
-	//print_player(&data->player, "end ray");
 	return (0);
 }
-
-
-
-
-

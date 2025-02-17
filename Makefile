@@ -34,7 +34,7 @@ CC				=	cc
 CFLAGS				=	-Wall -Wextra -Werror 
 
 NAME				=	cub3D
-
+#-g -fsanitize=address 
 $(NAME):			$(OBJ_DIR) $(OBJ) 
 				make -C./libft
 				$(CC) $(OBJ) $(LIBft) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)

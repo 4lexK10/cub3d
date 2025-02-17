@@ -61,7 +61,7 @@ static void	convert(t_data *data)
 int	main(int ac, char **av)
 {
 	t_data	data;
-    int fd;
+	int	fd;
 
 	(void) av;
 	if (ac != 2)
@@ -82,21 +82,5 @@ int	main(int ac, char **av)
 	raycasting(&data, START);
 	event_hook(&data);	
 	mlx_loop(data.mlx);
-	//a free dans la loop
-	if (data.info)
-	{
-		free(data.info->texture_N);
-		free(data.info->texture_S);
-		free(data.info->texture_W);
-		free(data.info->texture_E);
-		free(data.info);
-	}
-	if (data.raw_map)
-	{
-        for (int i = 0; data.raw_map->map_tab && data.raw_map->map_tab[i]; i++)
-            free(data.raw_map->map_tab[i]);
-        free(data.raw_map->map_tab);
-        free(data.raw_map);
-    }
 	return (EXIT_SUCCESS);
 }
