@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 21:58:01 by linaboumahd       #+#    #+#             */
-/*   Updated: 2025/01/19 15:34:38 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:34:26 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ char *get_texture(char **split_line)
     char    *path;
     int     path_len;
 
-    if (!split_line[1] || split_line[2])
+    //add cleaned line from space 
+	if (!split_line[1] || split_line[2])
     {
         free_split(split_line);
         ft_error("Error: Invalid texture format\n");
@@ -46,9 +47,9 @@ int	handle_textures_and_colors(t_info *info, char **split_line)
 	else if (!ft_strncmp(split_line[0], "EA", 3))
 		info->texture_E = get_texture(split_line);
 	else if (!ft_strncmp(split_line[0], "F", 2))
-		info->c_floor_hex = process_rgb_input(split_line[1]);
+			info->c_floor_hex = process_rgb_input(split_line);
 	else if (!ft_strncmp(split_line[0], "C", 2))
-		info->c_sky_hex = process_rgb_input(split_line[1]);
+		info->c_sky_hex = process_rgb_input(split_line);
 	else
 		return (0);
 	return (1);

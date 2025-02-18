@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 01:00:59 by linaboumahd       #+#    #+#             */
-/*   Updated: 2025/01/19 15:27:35 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:34:04 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,31 @@ void	validate_rgb_range(const char **rgb_values)
 	}
 }
 
-void	validate_rgb_format(char *line)
+void	validate_rgb_format(char **line)
 {
-	if (count_commas(line) != 2)
+	int i;
+	
+	if (!line[1] || line[2])
+    {
+        free_split(line);
+        ft_error("Error: Floor/ceiling input.");
+        exit(1);
+    }
+	//add cleaned line from space 
+	if (count_commas(line[1]) != 2)
 	{
 		ft_error("Error: Input must contain exactly 2 commas.");
 		exit(1);
+	}
+	i =0;
+	while(line[1][i])
+	{	
+		if( !ft_isdigit(line[1][i]) && line[1][i] != ',' && !is_space(line[1][i]))
+		{
+			ft_error("Error: Floor/ceiling input.");
+			exit(1);
+		}
+		i++;
 	}
 }
 
@@ -66,21 +85,33 @@ long	get_hex_value(const char **rgb_val)
 	int				g;
 	int				b;
 	unsigned long	hex;
-
+	
+	int i = 0;
+	while(i < 3)
+	{
+		if (!rgb_val[i])
+		{	
+			ft_error("Error: Floor/ceeiling input.");
+			exit(1);
+		}
+		i++;
+	}
 	r = ft_atoi(rgb_val[0]);
 	g = ft_atoi(rgb_val[1]);
 	b = ft_atoi(rgb_val[2]);
+	
 	hex = ((unsigned long)r << 16) | ((unsigned long)g << 8) | (unsigned long)b;
 	return (hex);
 }
 
-long	process_rgb_input(char *line)
+long	process_rgb_input(char **line)
 {
 	char			**rgb_values;
 	long	hex_value;
 
+	
 	validate_rgb_format(line);
-	rgb_values = ft_split(line, ',');
+	rgb_values = ft_split(line[1], ',');
 	if (!rgb_values)
 	{
 		ft_error("Error: Memory allocation failed.");
