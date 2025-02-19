@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 12:05:23 by akloster          #+#    #+#             */
-/*   Updated: 2025/02/18 19:27:21 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:44:44 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,10 +161,15 @@ long	process_rgb_input(char **line);
 //parser 
 void get_raw_data(t_data *data, int fd);
 int check_textures(t_info *info);
+char	*adapt_tab(char *map_line, int width);
 //parser utils
 char    *add_to_line(char *map_line, char *line);
 void    change_to_map_tab(t_map *map);
 int is_space(char c);
+char *trim_trailing_spaces(char *str);
+void	resize_map(t_map *map);
+int check_valid_line(char *line);
+
 //error
 
 

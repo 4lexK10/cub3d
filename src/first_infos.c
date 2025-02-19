@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 21:58:01 by linaboumahd       #+#    #+#             */
-/*   Updated: 2025/02/18 19:34:26 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:49:22 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ char *get_texture(char **split_line)
     char    *path;
     int     path_len;
 
-    //add cleaned line from space 
 	if (!split_line[1] || split_line[2])
     {
         free_split(split_line);
@@ -67,6 +66,31 @@ int check_textures(t_info *info)
     return (1);
 }
 
+char **cleaned(char **split_line)
+{
+    int i;
+	int j;
+	char *trimmed;
+
+	i = 2;
+	j = 2;
+    while (split_line[i])
+    {
+        trimmed = trim_trailing_spaces(split_line[i]);
+        
+        if (ft_strlen(trimmed) > 0)
+        {
+            split_line[j] = trimmed;
+            j++;
+        }
+        else
+            free(split_line[i]);
+        i++;
+    }
+    split_line[j] = NULL;
+    return (split_line);
+}
+
 int	get_first_info(t_map *map, t_info *info, char *line)
 {
 	char	**split_line;
@@ -79,6 +103,7 @@ int	get_first_info(t_map *map, t_info *info, char *line)
 		return (1);
 	}
 	split_line = ft_split(line, ' ');
+	split_line = cleaned(split_line);
 	if (!split_line || !split_line[0])
 	{
 		free_split(split_line);

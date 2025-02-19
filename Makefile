@@ -6,7 +6,7 @@
 #    By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/06 17:54:38 by akloster          #+#    #+#              #
-#    Updated: 2025/02/17 19:49:37 by lboumahd         ###   ########.fr        #
+#    Updated: 2025/02/19 19:44:12 by lboumahd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRC				=	main.c mlx_handling.c error_handling.c	\
 					raycasting.c vector_handling.c		\
 					rendering.c tools.c texture_handling.c	\
 					first_infos.c parser.c parser_utils.c	\
-					rgb.c 					\
+					rgb.c parser_utils2.c			\
+					
 
 HEADERS				=	includes/cub3d.h
 

@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 15:06:11 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/01/19 12:17:07 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:40:17 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,33 +70,6 @@ char	*adapt_tab(char *map_line, int width)
 	return(map_line);
 }
 
-void	resize_map(t_map *map)
-{
-	int	i;
-	int j;
-	int w_max;
-	
-	i = 0;
-	w_max = 0;
-	while (map->map_tab[i])
-	{
-		j = 0;
-		while (map->map_tab[i][j])
-			j++;
-		if (j > w_max)
-			w_max = j;
-		i++;
-	}
-	i = 0;
-	while (map->map_tab[i])
-	{
-		map->map_tab[i] = adapt_tab(map->map_tab[i], w_max);
-		if (!map->map_tab[i])
-			ft_error("Err Malloc");
-		i++;
-	}
-	map->height = i;
-}
 
 void	check_player(char *map_arr, t_map *map)
 {

@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 01:00:59 by linaboumahd       #+#    #+#             */
-/*   Updated: 2025/02/18 19:34:04 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:41:07 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	validate_rgb_format(char **line)
         ft_error("Error: Floor/ceiling input.");
         exit(1);
     }
-	//add cleaned line from space 
 	if (count_commas(line[1]) != 2)
 	{
 		ft_error("Error: Input must contain exactly 2 commas.");

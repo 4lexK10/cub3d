@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 20:50:36 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/02/18 18:40:33 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:40:48 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,28 +90,6 @@ int check_h(t_map *map, int y, int x)
         y++;
     }
     return (1);
-}
-
-int is_space(char c)
-{
-    if (c == 32 || (c >= 9 && c <= 13))
-		return(1);
-    return(0);
-}
-
-int check_valid_line(char *line)
-{
-    int i;
-
-    i = 0;
-    while (line[i])
-    {
-        if (line[i] != '1' && line[i] != '0' && line[i] != 'W' &&
-            line[i] != 'E' && line[i] != 'S' && line[i] != 'N' && !is_space(line[i]))
-            return (0);
-        i++;
-    }
-    return (1); 
 }
 
 void get_raw_data(t_data *data, int fd)
