@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:50:53 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/18 20:57:56 by akloster         ###   ########.fr       */
+/*   Updated: 2025/02/17 20:41:52 by akloster         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	free_all(t_data *data)
 	free_texture(&data->info->tex_S);
 	free_texture(&data->info->tex_W);
 	free_texture(&data->info->tex_E);	
+	free(data->info);
 	if (data->raw_map)
 	{
 		for (int i = 0; data->raw_map->map_tab && data->raw_map->map_tab[i]; i++)
