@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:49:34 by akloster          #+#    #+#             */
-/*   Updated: 2025/02/17 19:53:09 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/02/22 05:45:53 by akloster         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	main(int ac, char **av)
 		return (EXIT_FAILURE);	
 	raycasting(&data, START);
 	event_hook(&data);
-	free (data.info);
+	free(data.info);
 	mlx_loop(data.mlx);
 	return (EXIT_SUCCESS);
 }
