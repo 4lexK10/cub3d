@@ -48,7 +48,9 @@ void	init_data(t_data *data, char *path)
 	if (!data->info)
 	{
 		free(data->raw_map);
+		data->raw_map = NULL;
 		ft_error("Mem allocation\n");
+		return ;
 	}
 	ft_memset(data->info, 0, sizeof(t_info));
 	init_info(data->info);
@@ -87,10 +89,9 @@ int	main(int ac, char **av)
 	close(fd);
 	convert(&data);
 	if (init_mlx(&data) || init_textures(&data))
-		return (EXIT_FAILURE);	
+		return (free_all(&data), EXIT_FAILURE);
 	raycasting(&data, START);
 	event_hook(&data);
-	free(data.info);
 	mlx_loop(data.mlx);
 	return (EXIT_SUCCESS);
 }

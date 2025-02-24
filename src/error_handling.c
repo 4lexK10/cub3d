@@ -39,22 +39,34 @@ int	ft_error(char *str)
 
 static void	free_texture(t_texture *tex)
 {
-	free(tex->path);
-	free(tex->pixies);	
-	tex->pixies = NULL;
+	if (tex->path)
+		free(tex->path);
+	if (tex->pixies)
+		free(tex->pixies);	
 }
 
 void	free_all(t_data *data)
 {
-	mlx_destroy_window(data->mlx, data->win);
-	free_texture(&data->info->tex_N);
-	free_texture(&data->info->tex_S);
-	free_texture(&data->info->tex_W);
-	free_texture(&data->info->tex_E);	
-	free(data->mlx);
+	int	i;
+
+	if (data->mlx)
+	{
+		if (data->win)
+			mlx_destroy_window(data->mlx, data->win);
+		free(data->mlx);
+	}
+	if (data->info)
+	{
+		free_texture(&data->info->tex_N);
+		free_texture(&data->info->tex_S);
+		free_texture(&data->info->tex_W);
+		free_texture(&data->info->tex_E);
+		free(data->info);
+	}
 	if (data->raw_map)
 	{
-		for (int i = 0; data->raw_map->map_tab && data->raw_map->map_tab[i]; i++)
+		i = -1;
+		while (data->raw_map->map_tab && data->raw_map->map_tab[++i])
 			free(data->raw_map->map_tab[i]);
 		free(data->raw_map->map_tab);
 		free(data->raw_map);

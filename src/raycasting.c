@@ -75,7 +75,7 @@ int raycasting(t_data *data, int keycode)
 	else
 		move_player(data->map, &data->player, keycode);
 	if (init_frame(data, &frame))
-		return (ft_error("Error: mlx\n"));
+		return (free_all(data), ft_error("Error: mlx\n"));
 	x = -1;
 	while (++x < WIN_WIDTH)
 	{

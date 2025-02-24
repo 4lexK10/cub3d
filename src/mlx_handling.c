@@ -68,11 +68,11 @@ int	init_mlx(t_data *data)
 }
 
 int	init_frame(t_data *data, t_img *frame)
-{	
+{
 	frame->ptr_img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
 	if (!frame->ptr_img)
-		return (1);
+		return (EXIT_FAILURE);
 	frame->data = (int *) mlx_get_data_addr(frame->ptr_img
 		, &frame->bpp, &frame->line_length, &frame->endian);
-	return (0);
+	return (EXIT_SUCCESS);
 }
