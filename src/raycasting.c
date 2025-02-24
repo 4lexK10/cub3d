@@ -12,6 +12,22 @@
 
 #include "cub3d.h"
 
+static void	calibrate_ray(t_player *player, t_ray *ray, int step, int axis)
+{
+	int map_pos;
+
+	if (axis == X)
+		map_pos = ray->map_x;
+	else
+		map_pos = ray->map_y;	
+	ray->step[axis] = step;
+	if (step == 1)
+		ray->side_dist[axis] = (map_pos + 1 - player->pos[axis])
+			* ray->delta_dist[axis];
+	else	
+		ray->side_dist[axis] = (player->pos[axis] - map_pos)
+			* ray->delta_dist[axis];
+}
 
 static void	init_ray(t_player *player, t_ray *ray, int x)
 {
@@ -21,25 +37,13 @@ static void	init_ray(t_player *player, t_ray *ray, int x)
 	if (ray->cast[Y] != 0)
 		ray->delta_dist[Y] = absf(1.0 / ray->cast[Y]);
 	if (ray->cast[X] < 0)
-	{
-		ray->step[X] = -1;
-		ray->side_dist[X] = (player->pos[X] - ray->map_x) * ray->delta_dist[X];
-	}
+		calibrate_ray(player, ray, -1, X);
 	else
-	{
-		ray->step[X] = 1;
-		ray->side_dist[X] = (ray->map_x + 1 - player->pos[X]) * ray->delta_dist[X];
-	}
+		calibrate_ray(player, ray, 1, X);
 	if (ray->cast[Y] < 0)
-	{
-		ray->step[Y] = -1;
-		ray->side_dist[Y] = (player->pos[Y] - ray->map_y) * ray->delta_dist[Y];
-	}
+		calibrate_ray(player, ray, -1, Y);
 	else
-	{
-		ray->step[Y] = 1;
-		ray->side_dist[Y] = (ray->map_y + 1 - player->pos[Y]) * ray->delta_dist[Y];
-	}
+		calibrate_ray(player, ray, 1, Y);
 }
 
 static void	dda(t_data *data, t_ray *ray)
@@ -78,10 +82,10 @@ int raycasting(t_data *data, int keycode)
 		init_ray(&data->player, &ray, x);
 		while (!ray.hit)
 			dda(data, &ray);
-		if (ray.side)
-			ray.perp_dist = ray.side_dist[Y] - ray.delta_dist[Y];
-		else
+		if (ray.side == 0)
 			ray.perp_dist = ray.side_dist[X] - ray.delta_dist[X];
+		else
+			ray.perp_dist = ray.side_dist[Y] - ray.delta_dist[Y];
 		render_column(data, &frame, &ray, x);
 	}
 	mlx_put_image_to_window(data->mlx, data->win, frame.ptr_img, 0, 0);

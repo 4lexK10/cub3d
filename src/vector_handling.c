@@ -65,10 +65,8 @@ void	get_player_vector(t_data *data, t_player *player)
 
 	get_pos(data->map, &i, &j);
 	set_vector(player->pos, (double) j, (double) i);
-	if (data->map[i][j - 1] == '1')
-		player->pos[X] += 0.05;
-	if (data->map[i - 1][j] == '1')
-		player->pos[Y] += 0.05;
+	player->pos[X] += 0.5;
+	player->pos[Y] += 0.5;
 	set_FOV(player, data->map[i][j]);
 	(data->map)[i][j] = '0';
 }

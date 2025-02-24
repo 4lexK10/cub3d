@@ -12,17 +12,11 @@
 
 #include "cub3d.h"
 
-static int	put_pixel(t_img *frame, int x, int y, unsigned int color)
+static void	put_pixel(t_img *frame, int x, int y, unsigned int color)
 {
 	if (x >= 0 && y >= 0 && x <= WIN_WIDTH && y <= WIN_HEIGHT
 		&& ((y * WIN_WIDTH + x) <= (WIN_WIDTH * WIN_HEIGHT - 1)))
 		frame->data[y * WIN_WIDTH + x] = color;
-	else
-	{
-		printf("(%d %d) %x\n", x, y, color); // <<TAKE out
-		return (1);
-	}
-	return (0);
 }
 
 static unsigned int	get_color(t_data *data, t_ray *ray, int x, int y)
@@ -40,6 +34,13 @@ static unsigned int	get_color(t_data *data, t_ray *ray, int x, int y)
 
 static void	calibrate_texture(t_data *data, t_wall *wall, t_ray *ray)
 {
+	wall->h = (int) (WIN_HEIGHT / ray->perp_dist);
+	wall->start = -wall->h / 2 + WIN_HEIGHT / 2;
+	if (wall->start < 0)
+		wall->start = 0;
+	wall->end = wall->h / 2 + WIN_HEIGHT / 2;
+	if (wall->end >= WIN_HEIGHT)
+		wall->end = WIN_HEIGHT - 1;
 	if (ray->side)
 		wall->x = data->player.pos[X] + ray->perp_dist * ray->cast[X];
 	else
@@ -59,39 +60,20 @@ void	render_column(t_data *data, t_img *frame, t_ray *ray, int x)
 	t_wall		wall;
 	int		y;
 
-	wall.h = (int) (WIN_HEIGHT / ray->perp_dist); //hunt down perp_dist
-	if (ray->perp_dist == 0)
-		wall.h = WIN_HEIGHT;
-	wall.start = -wall.h / 2 + WIN_HEIGHT / 2;
-	if (wall.start < 0)
-		wall.start = 0;
-	wall.end = wall.h / 2 + WIN_HEIGHT / 2;
-	if (wall.end >= WIN_HEIGHT)
-		wall.end = WIN_HEIGHT - 1;
 	calibrate_texture(data, &wall, ray);
 	y = wall.start - 1;
 	while (++y <= wall.end)
 	{
 		wall.tex_Y = (int) wall.pos & (TEX_HEIGHT - 1);
 		wall.pos += wall.step;
-		if (put_pixel(frame, x, y, get_color(data, ray, wall.tex_X, wall.tex_Y)))
-			printf("y in render = %d\n", y);
+		put_pixel(frame, x, y,
+			get_color(data, ray, wall.tex_X, wall.tex_Y));
 		
 	}
 	y = -1;
-//	if (!x)
-//		printf("wall %d ray->perp_disti %f start %d\n", wall.h, ray->perp_dist, wall.start);
 	while (++y < wall.start)
 		put_pixel(frame, x, y, data->info->c_sky_hex);
 	y = wall.end;
 	while (++y < WIN_HEIGHT)
-	{
-		if (put_pixel(frame, x, y, data->info->c_floor_hex))
-			printf("y in after wall = %d\n", y);
-	}
-//	if (!x)
-//		printf("!rendering\n");
+		put_pixel(frame, x, y, data->info->c_floor_hex);
 }
-
-
-
