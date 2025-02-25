@@ -34,7 +34,7 @@ static unsigned int	get_color(t_data *data, t_ray *ray, int x, int y)
 
 static void	calibrate_texture(t_data *data, t_wall *wall, t_ray *ray)
 {
-	wall->h = (int) (WIN_HEIGHT / ray->perp_dist);
+	wall->h = (int)(WIN_HEIGHT / ray->perp_dist);
 	wall->start = -wall->h / 2 + WIN_HEIGHT / 2;
 	if (wall->start < 0)
 		wall->start = 0;
@@ -46,8 +46,8 @@ static void	calibrate_texture(t_data *data, t_wall *wall, t_ray *ray)
 	else
 		wall->x = data->player.pos[Y] + ray->perp_dist * ray->cast[Y];
 	wall->x -= floor(wall->x);
-	wall->tex_X = (int) (wall->x * (double) TEX_WIDTH);
-	if (!ray->side && ray->cast[X] > 0) 
+	wall->tex_X = (int)(wall->x * (double) TEX_WIDTH);
+	if (!ray->side && ray->cast[X] > 0)
 		wall->tex_X = TEX_WIDTH - wall->tex_X - 1;
 	if (ray->side && ray->cast[Y] < 0)
 		wall->tex_X = TEX_WIDTH - wall->tex_X - 1;
@@ -58,7 +58,7 @@ static void	calibrate_texture(t_data *data, t_wall *wall, t_ray *ray)
 void	render_column(t_data *data, t_img *frame, t_ray *ray, int x)
 {
 	t_wall		wall;
-	int		y;
+	int			y;
 
 	calibrate_texture(data, &wall, ray);
 	y = wall.start - 1;
@@ -68,7 +68,6 @@ void	render_column(t_data *data, t_img *frame, t_ray *ray, int x)
 		wall.pos += wall.step;
 		put_pixel(frame, x, y,
 			get_color(data, ray, wall.tex_X, wall.tex_Y));
-		
 	}
 	y = -1;
 	while (++y < wall.start)

@@ -14,17 +14,17 @@
 
 static void	calibrate_ray(t_player *player, t_ray *ray, int step, int axis)
 {
-	int map_pos;
+	int	map_pos;
 
 	if (axis == X)
 		map_pos = ray->map_x;
 	else
-		map_pos = ray->map_y;	
+		map_pos = ray->map_y;
 	ray->step[axis] = step;
 	if (step == 1)
 		ray->side_dist[axis] = (map_pos + 1 - player->pos[axis])
 			* ray->delta_dist[axis];
-	else	
+	else
 		ray->side_dist[axis] = (player->pos[axis] - map_pos)
 			* ray->delta_dist[axis];
 }
@@ -64,11 +64,11 @@ static void	dda(t_data *data, t_ray *ray)
 		ray->hit = true;
 }
 
-int raycasting(t_data *data, int keycode)
+int	raycasting(t_data *data, int keycode)
 {
 	t_ray	ray;
 	t_img	frame;
-	int	x;
+	int		x;
 
 	if (keycode == START)
 		get_player_vector(data, &data->player);

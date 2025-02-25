@@ -12,15 +12,16 @@
 
 #include "cub3d.h"
 
-void free_split(char **split_line)
+void	free_split(char **split_line)
 {
-    int i = 0;
+	int	i;
 
-    if (!split_line)
-        return;
-    while (split_line[i])
-        free(split_line[i++]);
-    free(split_line);
+	i = 0;
+	if (!split_line)
+		return ;
+	while (split_line[i])
+		free(split_line[i++]);
+	free(split_line);
 }
 
 int	ft_error(char *str)
@@ -28,7 +29,7 @@ int	ft_error(char *str)
 	size_t	res;
 
 	res = 0;
-	while (*str)	
+	while (*str)
 		res += write(STDERR_FILENO, str++, 1);
 	res += write(STDERR_FILENO, "\n", 1);
 	if (res != (ft_strlen(str) + 1))
@@ -36,13 +37,12 @@ int	ft_error(char *str)
 	return (EXIT_FAILURE);
 }
 
-
 static void	free_texture(t_texture *tex)
 {
 	if (tex->path)
 		free(tex->path);
 	if (tex->pixies)
-		free(tex->pixies);	
+		free(tex->pixies);
 }
 
 void	free_all(t_data *data)

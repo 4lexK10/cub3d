@@ -18,33 +18,33 @@ void	set_vector(double vector[2], double x, double y)
 	vector[Y] = y;
 }
 
-static void	set_FOV(t_player *player, char dir)
+static void	set_fov(t_player *player, char dir)
 {
 	if (dir == 'N')
 	{
 		set_vector(player->dir, 0.0, 1);
-		set_vector(player->plane, -FOV, 0.0);
+		set_vector(player->plane, -fov, 0.0);
 	}
-	else if (dir == 'E')	
+	else if (dir == 'E')
 	{
 		set_vector(player->dir, -1, 0.0);
-		set_vector(player->plane, 0.0, -FOV);
+		set_vector(player->plane, 0.0, -fov);
 	}
-	else if (dir == 'S')	
+	else if (dir == 'S')
 	{
 		set_vector(player->dir, 0.0, -1);
-		set_vector(player->plane, FOV, 0.0);
+		set_vector(player->plane, fov, 0.0);
 	}
-	else if (dir == 'W')	
+	else if (dir == 'W')
 	{
 		set_vector(player->dir, 1, 0.0);
-		set_vector(player->plane, 0.0, FOV);
+		set_vector(player->plane, 0.0, fov);
 	}
 	rotation(player, 0.001);
 }
 
 static void	get_pos(char **map, int *i, int *j)
-{	
+{
 	*i = -1;
 	*j = -1;
 	while (map[++(*i)])
@@ -67,7 +67,7 @@ void	get_player_vector(t_data *data, t_player *player)
 	set_vector(player->pos, (double) j, (double) i);
 	player->pos[X] += 0.5;
 	player->pos[Y] += 0.5;
-	set_FOV(player, data->map[i][j]);
+	set_fov(player, data->map[i][j]);
 	(data->map)[i][j] = '0';
 }
 
@@ -80,18 +80,15 @@ void	move_player(char **map, t_player *player, int keycode)
 		rotation(player, 0.05);
 	else
 		return ;
-	player->plane[X] = (player->dir[Y] * FOV) /
-		sqrtf(powf(player->dir[X], 2) + powf(player->dir[Y], 2));
+	player->plane[X] = (player->dir[Y] * fov) / sqrtf(powf(player->dir[X],
+				2) + powf(player->dir[Y], 2));
 	if (player->dir[Y] > 0 && player->plane[X] > 0)
 		player->plane[X] = -player->plane[X];
 	if (player->dir[Y] < 0 && player->plane[X] < 0)
 		player->plane[X] = -player->plane[X];
-	player->plane[Y] = sqrtf(powf(FOV, 2) - powf(player->plane[X], 2));
+	player->plane[Y] = sqrtf(powf(fov, 2) - powf(player->plane[X], 2));
 	if (player->dir[X] < 0 && player->plane[Y] > 0)
 		player->plane[Y] = -player->plane[Y];
 	if (player->dir[X] > 0 && player->plane[Y] < 0)
 		player->plane[Y] = -player->plane[Y];
 }
-
-
-

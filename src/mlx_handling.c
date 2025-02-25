@@ -14,7 +14,7 @@
 
 static int	key_hook(int keycode, void *param)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = (t_data *) param;
 	if (keycode == ESC_KEY)
@@ -39,7 +39,7 @@ static int	key_hook(int keycode, void *param)
 
 static int	mouse_hook(void *param)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = (t_data *) param;
 	free_all(data);
@@ -52,7 +52,7 @@ void	event_hook(t_data *data)
 	void	*param;
 
 	param = (void *) data;
-	mlx_hook(data->win, KEY_DOWN, 1L<<0, &key_hook, param);	
+	mlx_hook(data->win, KEY_DOWN, 1L << 0, &key_hook, param);
 	mlx_hook(data->win, 17, 0L, &mouse_hook, param);
 }
 
@@ -72,7 +72,7 @@ int	init_frame(t_data *data, t_img *frame)
 	frame->ptr_img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
 	if (!frame->ptr_img)
 		return (EXIT_FAILURE);
-	frame->data = (int *) mlx_get_data_addr(frame->ptr_img
-		, &frame->bpp, &frame->line_length, &frame->endian);
+	frame->data = (int *) mlx_get_data_addr(frame->ptr_img,
+			&frame->bpp, &frame->line_length, &frame->endian);
 	return (EXIT_SUCCESS);
 }

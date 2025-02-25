@@ -15,17 +15,20 @@
 static int	load_img(t_data *data, t_texture *tex, char *path)
 {
 	t_img	img;
-	int	x;
-	int	y;
+	int		x;
+	int		y;
 
 	y = -1;
-	img.ptr_img = mlx_xpm_file_to_image(data->mlx, path, &img.width, &img.height);
+	img.ptr_img = mlx_xpm_file_to_image(data->mlx,
+			path, &img.width, &img.height);
 	if (!img.ptr_img)
 		return (ft_error("error: malloc failed"));
-	img.data = (int *)mlx_get_data_addr(img.ptr_img, &img.bpp, &img.line_length, &img.endian);
+	img.data = (int *)mlx_get_data_addr(img.ptr_img,
+			&img.bpp, &img.line_length, &img.endian);
 	tex->pixies = (int *)malloc(img.width * img.height * sizeof(int));
 	if (!tex->pixies)
-		return (mlx_destroy_image(data->mlx, img.ptr_img), ft_error("error: malloc failed"));
+		return (mlx_destroy_image(data->mlx,
+				img.ptr_img), ft_error("error: malloc failed"));
 	while (++y < img.height)
 	{
 		x = -1;
