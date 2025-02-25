@@ -23,22 +23,22 @@ static void	set_fov(t_player *player, char dir)
 	if (dir == 'N')
 	{
 		set_vector(player->dir, 0.0, 1);
-		set_vector(player->plane, -fov, 0.0);
+		set_vector(player->plane, -FOV, 0.0);
 	}
 	else if (dir == 'E')
 	{
 		set_vector(player->dir, -1, 0.0);
-		set_vector(player->plane, 0.0, -fov);
+		set_vector(player->plane, 0.0, -FOV);
 	}
 	else if (dir == 'S')
 	{
 		set_vector(player->dir, 0.0, -1);
-		set_vector(player->plane, fov, 0.0);
+		set_vector(player->plane, FOV, 0.0);
 	}
 	else if (dir == 'W')
 	{
 		set_vector(player->dir, 1, 0.0);
-		set_vector(player->plane, 0.0, fov);
+		set_vector(player->plane, 0.0, FOV);
 	}
 	rotation(player, 0.001);
 }
@@ -80,13 +80,13 @@ void	move_player(char **map, t_player *player, int keycode)
 		rotation(player, 0.05);
 	else
 		return ;
-	player->plane[X] = (player->dir[Y] * fov) / sqrtf(powf(player->dir[X],
+	player->plane[X] = (player->dir[Y] * FOV) / sqrtf(powf(player->dir[X],
 				2) + powf(player->dir[Y], 2));
 	if (player->dir[Y] > 0 && player->plane[X] > 0)
 		player->plane[X] = -player->plane[X];
 	if (player->dir[Y] < 0 && player->plane[X] < 0)
 		player->plane[X] = -player->plane[X];
-	player->plane[Y] = sqrtf(powf(fov, 2) - powf(player->plane[X], 2));
+	player->plane[Y] = sqrtf(powf(FOV, 2) - powf(player->plane[X], 2));
 	if (player->dir[X] < 0 && player->plane[Y] > 0)
 		player->plane[Y] = -player->plane[Y];
 	if (player->dir[X] > 0 && player->plane[Y] < 0)
