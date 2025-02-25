@@ -14,8 +14,10 @@
 
 static int	key_hook(int keycode, void *param)
 {
+	int	return_val;
 	t_data	*data;
 
+	return_val = 0;
 	data = (t_data *) param;
 	if (keycode == ESC_KEY)
 	{
@@ -23,17 +25,19 @@ static int	key_hook(int keycode, void *param)
 		exit(0);
 	}
 	else if (keycode == W_KEY)
-		raycasting(data, W_KEY);
+		return_val = raycasting(data, W_KEY);
 	else if (keycode == A_KEY)
-		raycasting(data, A_KEY);
+		return_val = raycasting(data, A_KEY);
 	else if (keycode == S_KEY)
-		raycasting(data, S_KEY);
+		return_val = raycasting(data, S_KEY);
 	else if (keycode == D_KEY)
-		raycasting(data, D_KEY);
+		return_val = raycasting(data, D_KEY);
 	else if (keycode == LEFT_ARROW)
-		raycasting(data, LEFT_ARROW);
+		return_val = raycasting(data, LEFT_ARROW);
 	else if (keycode == RIGHT_ARROW)
-		raycasting(data, RIGHT_ARROW);
+		return_val = raycasting(data, RIGHT_ARROW);
+	if (return_val)
+		key_hook(ESC_KEY, data);
 	return (EXIT_SUCCESS);
 }
 

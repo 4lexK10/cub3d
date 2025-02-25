@@ -90,7 +90,8 @@ int	main(int ac, char **av)
 	convert(&data);
 	if (init_mlx(&data) || init_textures(&data))
 		return (free_all(&data), EXIT_FAILURE);
-	raycasting(&data, START);
+	if (raycasting(&data, START))
+		return (free_all(&data), EXIT_FAILURE);
 	event_hook(&data);
 	mlx_loop(data.mlx);
 	return (EXIT_SUCCESS);
