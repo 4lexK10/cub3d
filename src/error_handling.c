@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:50:53 by akloster          #+#    #+#             */
-/*   Updated: 2025/02/22 05:47:35 by akloster         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:40:51 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,11 @@ void	free_all(t_data *data)
 	if (data->mlx)
 	{
 		if (data->win)
+		{
+			
 			mlx_destroy_window(data->mlx, data->win);
+			mlx_destroy_display(data->mlx);
+		}
 		free(data->mlx);
 	}
 	if (data->info)
