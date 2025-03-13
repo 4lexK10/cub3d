@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 12:05:23 by akloster          #+#    #+#             */
-/*   Updated: 2025/02/19 19:44:44 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:20:48 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ void	translation(char **map, t_player *player, int keycode);
 int	init_textures(t_data *data);
 void	free_all(t_data *data);
 void	init_parsing(t_data *data, int fd);
-void	init_data(t_data *data, char *path);
+void	init_data(t_data *data);
 
 //first_info
 int get_first_info(t_map *map, t_info *info, char *line);
@@ -162,6 +162,9 @@ long	process_rgb_input(char **line);
 void get_raw_data(t_data *data, int fd);
 int check_textures(t_info *info);
 char	*adapt_tab(char *map_line, int width);
+int	check_char(char needle, char *haystack);
+int	check_infos(t_info *infos);
+
 //parser utils
 char    *add_to_line(char *map_line, char *line);
 void    change_to_map_tab(t_map *map);

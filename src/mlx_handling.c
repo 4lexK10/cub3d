@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_handling.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akloster <akloster@student.s19.be>         +#+  +:+       +#+        */
+/*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 18:18:11 by akloster          #+#    #+#             */
-/*   Updated: 2025/01/14 17:36:07 by akloster         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:18:04 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	key_hook(int keycode, void *param)
 {
-	int	return_val;
+	int		return_val;
 	t_data	*data;
 
 	return_val = 0;

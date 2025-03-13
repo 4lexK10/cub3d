@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 15:06:11 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/02/19 19:40:17 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:07:27 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ static int	get_size(char *str)
 	return (i);
 }
 
-char    *add_to_line(char *map_line, char *line)
+char	*add_to_line(char *map_line, char *line)
 {
-    int		size;
+	int		size;
 	int		i;
 	char	*arr;
-    
-    i = 0;
+
+	i = 0;
 	if (line[0] == '\n')
-            line[0] = ' ';
+		line[0] = ' ';
 	size = get_size(map_line) + get_size(line);
-	arr = malloc(sizeof(char) * size + 2);
+	arr = malloc(sizeof(char) * (size + 2));
 	if (arr == NULL)
 		return (NULL);
 	while (map_line && map_line[i])
@@ -51,55 +51,56 @@ char    *add_to_line(char *map_line, char *line)
 
 char	*adapt_tab(char *map_line, int width)
 {
-	char *str;
-	
+	char	*str;
+
 	if ((int)ft_strlen(map_line) <= width)
 	{
-		str = malloc(sizeof(char) * width + 1);		
+		str = malloc(sizeof(char) * (width + 1));
 		if (!str)
 			return (NULL);
 		ft_memset(str, ' ', width);
-	    str[width] = '\0';
-    	if (map_line)
-    	{
-        	ft_memcpy(str, map_line, ft_strlen(map_line));
-       		free(map_line);
-    	}
-    	return (str);
+		str[width] = '\0';
+		if (map_line)
+		{
+			ft_memcpy(str, map_line, ft_strlen(map_line));
+			free(map_line);
+		}
+		return (str);
 	}
-	return(map_line);
+	return (map_line);
 }
-
 
 void	check_player(char *map_arr, t_map *map)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(map_arr[i] && map_arr)
+	while (map_arr[i] && map_arr)
 	{
-		if(map_arr[i] == 'N' || map_arr[i] == 'S'
-		|| map_arr[i] == 'E' || map_arr[i] == 'W')
+		if (map_arr[i] == 'N' || map_arr[i] == 'S'
+			|| map_arr[i] == 'E' || map_arr[i] == 'W')
 			map->player++;
 		i++;
 	}
 	if (map->player != 1)
 	{
 		ft_error("too many or no player detected");
+		free(map->map_arr);
 		exit(1);
-	}	
+	}
 }
-void    change_to_map_tab(t_map *map)
+
+void	change_to_map_tab(t_map *map)
 {
-	if(!map || !map->map_arr)
-	{	
+	if (!map || !map->map_arr)
+	{
 		ft_error("empty map");
+		free(map);
 		exit(1);
 	}
 	check_player(map->map_arr, map);
 	map->map_tab = ft_split(map->map_arr, ';');
 	resize_map(map);
 	free(map->map_arr);
-    map->map_arr = NULL;
+	map->map_arr = NULL;
 }
-
