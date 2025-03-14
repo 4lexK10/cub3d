@@ -45,20 +45,24 @@ static void	free_texture(t_texture *tex)
 		free(tex->pixies);
 }
 
-void	free_all(t_data *data)
+static void	free_mlx(t_data *data)
 {
-	int	i;
-
 	if (data->mlx)
 	{
 		if (data->win)
 		{
-			
 			mlx_destroy_window(data->mlx, data->win);
 			mlx_destroy_display(data->mlx);
 		}
 		free(data->mlx);
 	}
+}
+
+void	free_all(t_data *data)
+{
+	int	i;
+
+	free_mlx(data);
 	if (data->info)
 	{
 		free_texture(&data->info->tex_N);

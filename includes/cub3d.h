@@ -30,8 +30,8 @@
 # define X 0
 # define Y 1
 # define ESC_KEY 0xff1b
-# define W_KEY 0x0077 //is AZERTY now
-# define A_KEY 0x0061 //is AZERTY now
+# define W_KEY 0x0077
+# define A_KEY 0x0061
 # define S_KEY 0x0073
 # define D_KEY 0x0064
 # define START 0x0
@@ -153,29 +153,20 @@ int	init_textures(t_data *data);
 void	free_all(t_data *data);
 void	init_parsing(t_data *data, int fd);
 void	init_data(t_data *data);
-
-//first_info
-int get_first_info(t_map *map, t_info *info, char *line);
-char *get_texture(char **split_line);
+int 	get_first_info(t_map *map, t_info *info, char *line);
+char	*get_texture(char **split_line);
 long	process_rgb_input(char **line);
-//parser 
-void get_raw_data(t_data *data, int fd);
-int check_textures(t_info *info);
+void	get_raw_data(t_data *data, int fd);
+int	check_textures(t_info *info);
 char	*adapt_tab(char *map_line, int width);
 int	check_char(char needle, char *haystack);
 int	check_infos(t_info *infos);
-
-//parser utils
-char    *add_to_line(char *map_line, char *line);
-void    change_to_map_tab(t_map *map);
-int is_space(char c);
-char *trim_trailing_spaces(char *str);
+char	*add_to_line(char *map_line, char *line);
+void	change_to_map_tab(t_map *map);
+int	is_space(char c);
+char	*trim_trailing_spaces(char *str);
 void	resize_map(t_map *map);
-int check_valid_line(char *line);
-
-//error
-
-
-void free_split(char **split_line);
+int	check_valid_line(char *line);
+void	free_split(char **split_line);
 
 #endif
