@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 21:58:01 by linaboumahd       #+#    #+#             */
-/*   Updated: 2025/03/13 19:17:48 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:50:25 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,25 +72,44 @@ int	check_textures(t_info *info)
 	return (1);
 }
 
-char	**cleaned(char **split_line)
+int ft_split_len(char **split)
 {
-	int		i;
-	int		j;
-	char	*trimmed;
+    int count = 0;
 
-	i = 2;
-	j = 2;
-	while (split_line[i])
-	{
-		trimmed = trim_trailing_spaces(split_line[i]);
-		if (ft_strlen(trimmed) > 0)
-			split_line[j++] = trimmed;
-		else
-			free(split_line[i]);
-		i++;
-	}
-	split_line[j] = NULL;
-	return (split_line);
+    if (!split)
+        return (0);
+    while (split[count])
+        count++;
+    return (count);
+}
+
+char **cleaned(char **split_line)
+{
+    int i;
+    int j;
+    char *trimmed;
+    char **new_split;
+    
+    if (!split_line)
+        return (NULL);
+    new_split = malloc((ft_split_len(split_line) + 1) * sizeof(char *));
+    if (!new_split)
+        return (NULL);
+    i = 0;
+    j = 0;
+    while (split_line[i])
+    {
+        trimmed = trim_trailing_spaces(split_line[i]);
+        if (trimmed && ft_strlen(trimmed) > 0)
+            new_split[j++] = trimmed;
+        else
+            free(trimmed);
+        free(split_line[i]);
+        i++;
+    }
+    new_split[j] = NULL;
+    free(split_line);
+    return (new_split);
 }
 
 int	get_first_info(t_map *map, t_info *info, char *line)

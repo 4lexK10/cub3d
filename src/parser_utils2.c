@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 19:38:42 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/03/13 19:02:29 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:44:38 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 
 char	*trim_trailing_spaces(char *str)
 {
-	int	len;
+	int		len;
+	char	*result;
 
 	if (!str)
 		return (NULL);
 	len = ft_strlen(str);
 	while (len > 0 && is_space((unsigned char)str[len - 1]))
 		len--;
-	str[len] = '\0';
-	return (str);
+	result = ft_substr(str, 0, len);
+	return (result);
 }
 
 void	resize_map(t_map *map)
@@ -47,7 +48,7 @@ void	resize_map(t_map *map)
 	{
 		map->map_tab[i] = adapt_tab(map->map_tab[i], w_max);
 		if (!map->map_tab[i])
-			ft_error("Err Malloc");
+			free_map_tab(map->map_tab);
 		i++;
 	}
 	map->height = i;

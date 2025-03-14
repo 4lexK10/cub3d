@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 20:50:36 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/03/13 19:15:53 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:35:55 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	validate_map_closure(t_map *map)
 		if (map->map_arr)
 			free(map->map_arr);
 		if (map->map_tab)
-			free(map->map_tab);
+			free_map_tab(map->map_tab);
 		free(map);
 		exit(1);
 	}

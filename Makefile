@@ -6,7 +6,7 @@
 #    By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/06 17:54:38 by akloster          #+#    #+#              #
-#    Updated: 2025/03/13 19:16:09 by lboumahd         ###   ########.fr        #
+#    Updated: 2025/03/14 18:55:45 by lboumahd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC				=	main.c mlx_handling.c error_handling.c	\
 					raycasting.c vector_handling.c		\
 					rendering.c tools.c texture_handling.c	\
 					first_infos.c parser.c parser_utils.c	\
-					rgb.c parser_utils2.c parser2.c	\
+					rgb.c parser_utils2.c parser2.c
 					
 
 HEADERS				=	includes/cub3d.h
@@ -32,19 +32,19 @@ OBJ				=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
 CC				=	cc
 
-CFLAGS				=	-Wall -Wextra -Werror 
+CFLAGS				=	-Wall -Wextra -Werror
 
 NAME				=	cub3D
 #-g -fsanitize=address 
 $(NAME):			$(OBJ_DIR) $(OBJ) 
 				make -C./libft
-				$(CC) $(OBJ) $(LIBft) -g3 -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+				$(CC) $(OBJ) $(LIBft) -g3 -fsanitize=address -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 all:				$(NAME)
 
 $(OBJ_DIR)%.o:			$(SRC_DIR)%.c $(HEADERS)
 				@mkdir -p $(dir $@)
-				$(CC) $(CFLAGS) -Iincludes -I/usr/include -Imlx_linux -c $< -o $@
+				$(CC) $(CFLAGS) -I includes -I /usr/include -Imlx_linux -c $< -o $@
 
 
 $(OBJ_DIR):

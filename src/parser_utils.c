@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 15:06:11 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/03/13 19:07:27 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:30:03 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,17 @@ char	*adapt_tab(char *map_line, int width)
 {
 	char	*str;
 
-	if ((int)ft_strlen(map_line) <= width)
+	str = malloc(sizeof(char) * (width + 1));
+	if (!str)
+		return (NULL);
+	ft_memset(str, ' ', width);
+	str[width] = '\0';
+	if (map_line)
 	{
-		str = malloc(sizeof(char) * (width + 1));
-		if (!str)
-			return (NULL);
-		ft_memset(str, ' ', width);
-		str[width] = '\0';
-		if (map_line)
-		{
-			ft_memcpy(str, map_line, ft_strlen(map_line));
-			free(map_line);
-		}
-		return (str);
+		ft_memcpy(str, map_line, ft_strlen(map_line));
+		free(map_line);
 	}
-	return (map_line);
+	return (str);
 }
 
 void	check_player(char *map_arr, t_map *map)

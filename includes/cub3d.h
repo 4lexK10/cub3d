@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 12:05:23 by akloster          #+#    #+#             */
-/*   Updated: 2025/03/13 19:20:48 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:35:32 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef struct s_map
 
 typedef struct	s_texture
 {
-	char		*path;
+	char	*path;
 	int		*pixies;
 }	t_texture;
 
@@ -175,6 +175,7 @@ int check_valid_line(char *line);
 
 //error
 
+void	free_map_tab(char **map_tab);
 
 void free_split(char **split_line);
 
