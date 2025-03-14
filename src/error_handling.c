@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:50:53 by akloster          #+#    #+#             */
-/*   Updated: 2025/03/14 19:50:03 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/03/14 21:34:30 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,19 +80,4 @@ void	free_all(t_data *data)
 		free(data->raw_map);
 	}
 	ft_memset(data, 0, sizeof(t_data));
-}
-
-void	free_map_tab(char **map_tab)
-{
-	int	i;
-
-	if (!map_tab)
-		return ;
-	i = 0;
-	while (map_tab[i])
-	{
-		free(map_tab[i]);
-		i++;
-	}
-	free(map_tab);
 }

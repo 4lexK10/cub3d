@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 21:58:01 by linaboumahd       #+#    #+#             */
-/*   Updated: 2025/03/14 19:50:25 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/03/14 21:32:25 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,44 +72,33 @@ int	check_textures(t_info *info)
 	return (1);
 }
 
-int ft_split_len(char **split)
+char	**cleaned(char **split_line)
 {
-    int count = 0;
+	int		i;
+	int		j;
+	char	*trimmed;
+	char	**new_split;
 
-    if (!split)
-        return (0);
-    while (split[count])
-        count++;
-    return (count);
-}
-
-char **cleaned(char **split_line)
-{
-    int i;
-    int j;
-    char *trimmed;
-    char **new_split;
-    
-    if (!split_line)
-        return (NULL);
-    new_split = malloc((ft_split_len(split_line) + 1) * sizeof(char *));
-    if (!new_split)
-        return (NULL);
-    i = 0;
-    j = 0;
-    while (split_line[i])
-    {
-        trimmed = trim_trailing_spaces(split_line[i]);
-        if (trimmed && ft_strlen(trimmed) > 0)
-            new_split[j++] = trimmed;
-        else
-            free(trimmed);
-        free(split_line[i]);
-        i++;
-    }
-    new_split[j] = NULL;
-    free(split_line);
-    return (new_split);
+	if (!split_line)
+		return (NULL);
+	new_split = malloc((ft_split_len(split_line) + 1) * sizeof(char *));
+	if (!new_split)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (split_line[i])
+	{
+		trimmed = trim_trailing_spaces(split_line[i]);
+		if (trimmed && ft_strlen(trimmed) > 0)
+			new_split[j++] = trimmed;
+		else
+			free(trimmed);
+		free(split_line[i]);
+		i++;
+	}
+	new_split[j] = NULL;
+	free(split_line);
+	return (new_split);
 }
 
 int	get_first_info(t_map *map, t_info *info, char *line)

@@ -6,7 +6,7 @@
 #    By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/06 17:54:38 by akloster          #+#    #+#              #
-#    Updated: 2025/03/14 18:55:45 by lboumahd         ###   ########.fr        #
+#    Updated: 2025/03/14 21:34:00 by lboumahd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRC				=	main.c mlx_handling.c error_handling.c	\
 					raycasting.c vector_handling.c		\
 					rendering.c tools.c texture_handling.c	\
 					first_infos.c parser.c parser_utils.c	\
-					rgb.c parser_utils2.c parser2.c
+					rgb.c parser_utils2.c parser2.c        \
+					helper.c
 					
 
 HEADERS				=	includes/cub3d.h
@@ -38,7 +39,7 @@ NAME				=	cub3D
 #-g -fsanitize=address 
 $(NAME):			$(OBJ_DIR) $(OBJ) 
 				make -C./libft
-				$(CC) $(OBJ) $(LIBft) -g3 -fsanitize=address -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+				$(CC) $(OBJ) $(LIBft) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 all:				$(NAME)
 
