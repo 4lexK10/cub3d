@@ -16,10 +16,10 @@ void	init_info(t_info *info)
 {
 	info->c_floor_hex = -1;
 	info->c_sky_hex = -1;
-	info->texture_E = NULL;
-	info->texture_N = NULL;
-	info->texture_S = NULL;
-	info->texture_W = NULL;
+	info->texture_e = NULL;
+	info->texture_n = NULL;
+	info->texture_s = NULL;
+	info->texture_w = NULL;
 }
 
 void	init_parsing(t_data *data, int fd)
@@ -65,10 +65,10 @@ void	init_data(t_data *data)
 
 static void	convert(t_data *data)
 {
-	data->info->tex_N.path = data->info->texture_N;
-	data->info->tex_S.path = data->info->texture_S;
-	data->info->tex_E.path = data->info->texture_E;
-	data->info->tex_W.path = data->info->texture_W;
+	data->info->tex_n.path = data->info->texture_n;
+	data->info->tex_s.path = data->info->texture_s;
+	data->info->tex_e.path = data->info->texture_e;
+	data->info->tex_w.path = data->info->texture_w;
 }
 
 int	main(int ac, char **av)

@@ -65,10 +65,10 @@ void	free_all(t_data *data)
 	free_mlx(data);
 	if (data->info)
 	{
-		free_texture(&data->info->tex_N);
-		free_texture(&data->info->tex_S);
-		free_texture(&data->info->tex_W);
-		free_texture(&data->info->tex_E);
+		free_texture(&data->info->tex_n);
+		free_texture(&data->info->tex_s);
+		free_texture(&data->info->tex_w);
+		free_texture(&data->info->tex_e);
 		free(data->info);
 	}
 	if (data->raw_map)

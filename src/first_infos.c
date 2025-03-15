@@ -39,13 +39,13 @@ char	*get_texture(char **split_line)
 int	handle_textures_and_colors(t_info *info, char **split_line)
 {
 	if (!ft_strncmp(split_line[0], "NO", 3))
-		info->texture_N = get_texture(split_line);
+		info->texture_n = get_texture(split_line);
 	else if (!ft_strncmp(split_line[0], "SO", 3))
-		info->texture_S = get_texture(split_line);
+		info->texture_s = get_texture(split_line);
 	else if (!ft_strncmp(split_line[0], "WE", 3))
-		info->texture_W = get_texture(split_line);
+		info->texture_w = get_texture(split_line);
 	else if (!ft_strncmp(split_line[0], "EA", 3))
-		info->texture_E = get_texture(split_line);
+		info->texture_e = get_texture(split_line);
 	else if (!ft_strncmp(split_line[0], "F", 2))
 		info->c_floor_hex = process_rgb_input(split_line);
 	else if (!ft_strncmp(split_line[0], "C", 2))
@@ -57,17 +57,17 @@ int	handle_textures_and_colors(t_info *info, char **split_line)
 
 int	check_textures(t_info *info)
 {
-	if (!info->texture_N || access(info->texture_N, F_OK) != 0
-		|| access(info->texture_N, R_OK) != 0)
+	if (!info->texture_n || access(info->texture_n, F_OK) != 0
+		|| access(info->texture_n, R_OK) != 0)
 		return (0);
-	if (!info->texture_S || access(info->texture_S, F_OK) != 0
-		|| access(info->texture_S, R_OK) != 0)
+	if (!info->texture_s || access(info->texture_s, F_OK) != 0
+		|| access(info->texture_s, R_OK) != 0)
 		return (0);
-	if (!info->texture_W || access(info->texture_W, F_OK) != 0
-		|| access(info->texture_W, R_OK) != 0)
+	if (!info->texture_w || access(info->texture_w, F_OK) != 0
+		|| access(info->texture_w, R_OK) != 0)
 		return (0);
-	if (!info->texture_E || access(info->texture_E, F_OK) != 0
-		|| access(info->texture_E, R_OK) != 0)
+	if (!info->texture_e || access(info->texture_e, F_OK) != 0
+		|| access(info->texture_e, R_OK) != 0)
 		return (0);
 	return (1);
 }

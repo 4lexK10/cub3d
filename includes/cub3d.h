@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 12:05:23 by akloster          #+#    #+#             */
-/*   Updated: 2025/03/14 21:39:14 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:20:48 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,23 @@
 # include "../libft/libft.h"
 # include "../GNL/get_next_line.h"
 
-# define WIN_WIDTH	640
-# define WIN_HEIGHT	480
-# define TEX_WIDTH	64
-# define TEX_HEIGHT	64
-# define X			0
-# define Y			1
-# define ESC_KEY	0xff1b
-# define W_KEY		0x0077
-# define A_KEY		0x0061
-# define S_KEY		0x0073
-# define D_KEY		0x0064
-# define START		0x0
-# define LEFT_ARROW	0xff51
-# define RIGHT_ARROW	0xff53
-# define KEY_DOWN	2
-# define FOV		0.66666
-# define MOVE_SPEED	0.1
+# define WIN_WIDTH 640
+# define WIN_HEIGHT 480
+# define TEX_WIDTH 64
+# define TEX_HEIGHT 64
+# define X 0
+# define Y 1
+# define ESC_KEY 0xff1b
+# define W_KEY 0x0077
+# define A_KEY 0x0061
+# define S_KEY 0x0073
+# define D_KEY 0x0064
+# define START 0x0
+# define LEFT_ARROW 0xff51
+# define RIGHT_ARROW 0xff53
+# define KEY_DOWN 2
+# define FOV 0.66666
+# define MOVE_SPEED 0.1
 
 typedef struct s_img
 {
@@ -59,15 +59,15 @@ typedef struct s_wall
 	int		start;
 	int		end;
 	double	x;
-	int		tex_X;
-	int		tex_Y;
+	int		tex_x;
+	int		tex_y;
 	double	pos;
 	double	step;
 }	t_wall;
 
 typedef struct s_ray
 {
-	double	cameraX;
+	double	camera_x;
 	double	cast[2];
 	double	side_dist[2];
 	double	delta_dist[2];
@@ -111,14 +111,14 @@ typedef struct s_info
 	int			height;
 	long		c_floor_hex;
 	long		c_sky_hex;
-	char		*texture_N;
-	char		*texture_S;
-	char		*texture_W;
-	char		*texture_E;
-	t_texture	tex_N;
-	t_texture	tex_S;
-	t_texture	tex_W;
-	t_texture	tex_E;
+	char		*texture_n;
+	char		*texture_s;
+	char		*texture_w;
+	char		*texture_e;
+	t_texture	tex_n;
+	t_texture	tex_s;
+	t_texture	tex_w;
+	t_texture	tex_e;
 }	t_info;
 
 typedef struct s_data
@@ -134,17 +134,12 @@ typedef struct s_data
 	t_player	player;
 }	t_data;
 
-/* Function Prototypes */
-
-// mlx
 int		init_mlx(t_data *data);
 int		raycasting(t_data *data, int keycode);
 int		ft_error(char *str);
 void	get_player_vector(t_data *data, t_player *player);
 int		init_frame(t_data *data, t_img *frame);
 void	render_column(t_data *data, t_img *frame, t_ray *ray, int x);
-
-// raycasting utils
 double	absf(double nbr);
 void	pre_init(t_player *player, t_ray *ray, int x);
 void	set_vector(double vector[2], double x, double y);
@@ -152,12 +147,8 @@ void	rotation(t_player *player, double a);
 void	move_player(char **map, t_player *player, int keycode);
 void	event_hook(t_data *data);
 void	translation(char **map, t_player *player, int keycode);
-
-// textures
 int		init_textures(t_data *data);
 void	free_all(t_data *data);
-
-// parsing
 void	init_parsing(t_data *data, int fd);
 void	init_data(t_data *data);
 void	get_raw_data(t_data *data, int fd);
@@ -165,22 +156,16 @@ int		check_textures(t_info *info);
 char	*adapt_tab(char *map_line, int width);
 int		check_char(char needle, char *haystack);
 int		check_infos(t_info *infos);
-
-// parser utils
 char	*add_to_line(char *map_line, char *line);
 void	change_to_map_tab(t_map *map);
 int		is_space(char c);
 char	*trim_trailing_spaces(char *str);
 void	resize_map(t_map *map);
 int		check_valid_line(char *line);
-
-// first_info
 int		get_first_info(t_map *map, t_info *info, char *line);
 char	*get_texture(char **split_line);
 long	process_rgb_input(char **line);
 int		ft_split_len(char **split);
-
-// error handling
 void	free_map_tab(char **map_tab);
 void	free_split(char **split_line);
 

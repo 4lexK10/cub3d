@@ -28,8 +28,8 @@ int	check_char(char needle, char *haystack)
 
 int	check_infos(t_info *infos)
 {
-	if (!infos->texture_E || !infos->texture_N
-		|| !infos->texture_S || !infos->texture_W)
+	if (!infos->texture_e || !infos->texture_n
+		|| !infos->texture_s || !infos->texture_w)
 		return (0);
 	if (infos->c_floor_hex == -1 || infos->c_sky_hex == -1)
 		return (0);

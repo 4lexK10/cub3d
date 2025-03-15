@@ -22,13 +22,13 @@ static void	put_pixel(t_img *frame, int x, int y, unsigned int color)
 static unsigned int	get_color(t_data *data, t_ray *ray, int x, int y)
 {
 	if (ray->side && ray->cast[Y] < 0)
-		return (data->info->tex_S.pixies[y * TEX_WIDTH + x]);
+		return (data->info->tex_s.pixies[y * TEX_WIDTH + x]);
 	else if (ray->side && ray->cast[Y] > 0)
-		return (data->info->tex_N.pixies[y * TEX_WIDTH + x]);
+		return (data->info->tex_n.pixies[y * TEX_WIDTH + x]);
 	else if (!ray->side && ray->cast[X] > 0)
-		return (data->info->tex_W.pixies[y * TEX_WIDTH + x]);
+		return (data->info->tex_w.pixies[y * TEX_WIDTH + x]);
 	else if (!ray->side && ray->cast[X] < 0)
-		return (data->info->tex_E.pixies[y * TEX_WIDTH + x]);
+		return (data->info->tex_e.pixies[y * TEX_WIDTH + x]);
 	return (0x000000);
 }
 
@@ -46,11 +46,11 @@ static void	calibrate_texture(t_data *data, t_wall *wall, t_ray *ray)
 	else
 		wall->x = data->player.pos[Y] + ray->perp_dist * ray->cast[Y];
 	wall->x -= floor(wall->x);
-	wall->tex_X = (int)(wall->x * (double) TEX_WIDTH);
+	wall->tex_x = (int)(wall->x * (double) TEX_WIDTH);
 	if (!ray->side && ray->cast[X] > 0)
-		wall->tex_X = TEX_WIDTH - wall->tex_X - 1;
+		wall->tex_x = TEX_WIDTH - wall->tex_x - 1;
 	if (ray->side && ray->cast[Y] < 0)
-		wall->tex_X = TEX_WIDTH - wall->tex_X - 1;
+		wall->tex_x = TEX_WIDTH - wall->tex_x - 1;
 	wall->step = 1.0 * TEX_HEIGHT / wall->h;
 	wall->pos = (wall->start - WIN_HEIGHT / 2 + wall->h / 2) * wall->step;
 }
@@ -64,10 +64,10 @@ void	render_column(t_data *data, t_img *frame, t_ray *ray, int x)
 	y = wall.start - 1;
 	while (++y <= wall.end)
 	{
-		wall.tex_Y = (int) wall.pos & (TEX_HEIGHT - 1);
+		wall.tex_y = (int) wall.pos & (TEX_HEIGHT - 1);
 		wall.pos += wall.step;
 		put_pixel(frame, x, y,
-			get_color(data, ray, wall.tex_X, wall.tex_Y));
+			get_color(data, ray, wall.tex_x, wall.tex_y));
 	}
 	y = -1;
 	while (++y < wall.start)

@@ -53,10 +53,10 @@ static int	gety_texture(t_data *data, t_texture *tex)
 
 int	init_textures(t_data *data)
 {
-	if (gety_texture(data, &data->info->tex_N)
-		|| gety_texture(data, &data->info->tex_S)
-		|| gety_texture(data, &data->info->tex_E)
-		|| gety_texture(data, &data->info->tex_W))
+	if (gety_texture(data, &data->info->tex_n)
+		|| gety_texture(data, &data->info->tex_s)
+		|| gety_texture(data, &data->info->tex_e)
+		|| gety_texture(data, &data->info->tex_w))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

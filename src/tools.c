@@ -61,9 +61,9 @@ void	translation(char **map, t_player *player, int keycode)
 void	pre_init(t_player *player, t_ray *ray, int x)
 {
 	ray->hit = false;
-	ray->cameraX = 2 * (double) x / (double) WIN_WIDTH - 1;
-	ray->cast[X] = player->dir[X] + player->plane[X] * ray->cameraX;
-	ray->cast[Y] = player->dir[Y] + player->plane[Y] * ray->cameraX;
+	ray->camera_x = 2 * (double) x / (double) WIN_WIDTH - 1;
+	ray->cast[X] = player->dir[X] + player->plane[X] * ray->camera_x;
+	ray->cast[Y] = player->dir[Y] + player->plane[Y] * ray->camera_x;
 	ray->map_x = (int) player->pos[X];
 	ray->map_y = (int) player->pos[Y];
 	ray->delta_dist[X] = 1e30;
