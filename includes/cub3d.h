@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 12:05:23 by akloster          #+#    #+#             */
-/*   Updated: 2025/03/19 16:22:09 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/03/19 19:23:00 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,5 +168,6 @@ long	process_rgb_input(char **line);
 int		ft_split_len(char **split);
 void	free_map_tab(char **map_tab);
 void	free_split(char **split_line);
+void	free_data(t_data *data);
 
 #endif

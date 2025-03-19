@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:49:34 by akloster          #+#    #+#             */
-/*   Updated: 2025/03/14 18:30:26 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/03/19 19:47:52 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@ void	init_parsing(t_data *data, int fd)
 	data->map = data->raw_map->map_tab;
 	if (!check_textures(data->info))
 	{
+		if (data->info->texture_e)
+			free(data->info->texture_e);
+		if (data->info->texture_s)
+			free(data->info->texture_s);
+		if (data->info->texture_w)
+			free(data->info->texture_w);
+		if (data->info->texture_n)
+			free(data->info->texture_n);
+		if (data->info->path) 
+			free(data->info->path);
+		if (data->raw_map->map_tab)
+			free_map_tab(data->raw_map->map_tab);
 		free(data->raw_map);
 		free(data->info);
 		ft_error("wrong textures");

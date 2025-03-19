@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 21:32:06 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/03/14 21:34:22 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/03/19 19:27:14 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,23 @@ void	free_map_tab(char **map_tab)
 		i++;
 	}
 	free(map_tab);
+}
+void	free_data(t_data *data)
+{
+	if (data->info->texture_e)
+		free(data->info->texture_e);
+	if (data->info->texture_s)
+		free(data->info->texture_s);
+	if (data->info->texture_w)
+		free(data->info->texture_w);
+	if (data->info->texture_n)
+		free(data->info->texture_n);
+	if (data->info->path) 
+		free(data->info->path);
+	if (data->raw_map)
+		free(data->raw_map);
+	if (data->info)
+		free(data->info);
+	if (data->raw_map->map_arr)
+		free(data->raw_map->map_arr);
 }
