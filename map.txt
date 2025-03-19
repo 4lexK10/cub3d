@@ -1,12 +1,11 @@
-F 164,169,20
-C 153,204,2
-
 
 NO textures/detroit_D.xpm
 WE textures/forevernevermore.xpm
-S0 textures/u_cant_lie.xpm                          
-EA textures/rain.xpm   
+SO textures/u_cant_lie.xpm                          
+EA textures/rain.xpm  
 
+F 164,169,20
+C 153,204,2
 
     111111111111111111111			
     101000001000000000001       

@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 21:32:06 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/03/19 19:27:14 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/03/19 20:27:36 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ void	free_data(t_data *data)
 		free(data->info->texture_n);
 	if (data->info->path) 
 		free(data->info->path);
+	if (data->raw_map->map_arr)
+		free(data->raw_map->map_arr);
 	if (data->raw_map)
 		free(data->raw_map);
 	if (data->info)
 		free(data->info);
-	if (data->raw_map->map_arr)
-		free(data->raw_map->map_arr);
 }

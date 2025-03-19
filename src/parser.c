@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 20:50:36 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/03/19 19:29:56 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/03/19 20:35:12 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	validate_map_closure(t_map *map, t_data *data)
 	{
 		ft_error("map not closed");
 		if (data->info->texture_e)
-		free(data->info->texture_e);
+			free(data->info->texture_e);
 		if (data->info->texture_s)
 			free(data->info->texture_s);
 		if (data->info->texture_w)
@@ -106,8 +106,8 @@ void	get_raw_data(t_data *data, int fd)
 		{
 			if (!check_valid_line(line) || !check_infos(data->info))
 			{
-				free(line);
 				free_data(data);
+				free(line);
 				ft_error("invalid input");
 				exit(1);
 			}
