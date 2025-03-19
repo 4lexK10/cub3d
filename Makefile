@@ -6,7 +6,7 @@
 #    By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/06 17:54:38 by akloster          #+#    #+#              #
-#    Updated: 2025/03/19 16:54:26 by lboumahd         ###   ########.fr        #
+#    Updated: 2025/03/19 20:46:19 by lboumahd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC				=	main.c mlx_handling.c error_handling.c	\
 HEADERS				=	includes/cub3d.h
 
 LIBft				=	libft/libft.a
-+git 
+
 OBJ_DIR				=	objs/
 
 OBJ				=	$(addprefix $(OBJ_DIR), $(SRC:.c=.o))

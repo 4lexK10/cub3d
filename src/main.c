@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:49:34 by akloster          #+#    #+#             */
-/*   Updated: 2025/03/14 18:30:26 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/03/19 20:50:20 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	main(int ac, char **av)
 	(void) av;
 	if (ac != 2)
 		return (ft_error("error: incorrect number of arguments"));
+	check_ext(av[1]);
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
 	{
