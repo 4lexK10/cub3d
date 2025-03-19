@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 21:58:01 by linaboumahd       #+#    #+#             */
-/*   Updated: 2025/03/14 21:32:25 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:42:20 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ char	*get_texture(char **split_line)
 
 int	handle_textures_and_colors(t_info *info, char **split_line)
 {
-	if (!ft_strncmp(split_line[0], "NO", 3))
+	if (!ft_strncmp(split_line[0], "NO", 3) && !info->texture_n)
 		info->texture_n = get_texture(split_line);
-	else if (!ft_strncmp(split_line[0], "SO", 3))
+	else if (!ft_strncmp(split_line[0], "SO", 3) && !info->texture_s)
 		info->texture_s = get_texture(split_line);
-	else if (!ft_strncmp(split_line[0], "WE", 3))
+	else if (!ft_strncmp(split_line[0], "WE", 3) && !info->texture_w)
 		info->texture_w = get_texture(split_line);
-	else if (!ft_strncmp(split_line[0], "EA", 3))
+	else if (!ft_strncmp(split_line[0], "EA", 3) && !info->texture_e)
 		info->texture_e = get_texture(split_line);
-	else if (!ft_strncmp(split_line[0], "F", 2))
+	else if (!ft_strncmp(split_line[0], "F", 2) && info->c_floor_hex == -1)
 		info->c_floor_hex = process_rgb_input(split_line);
-	else if (!ft_strncmp(split_line[0], "C", 2))
+	else if (!ft_strncmp(split_line[0], "C", 2) && info->c_sky_hex == -1)
 		info->c_sky_hex = process_rgb_input(split_line);
 	else
 		return (0);

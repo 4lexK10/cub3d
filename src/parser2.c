@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 19:15:08 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/03/13 19:17:24 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:08:58 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_char(char needle, char *haystack)
 	i = 0;
 	while (haystack[i])
 	{
-		if (needle == haystack[i])
+		if (needle == haystack[i] || is_space(needle))
 			return (1);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: lboumahd <lboumahd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 20:50:36 by lboumahd          #+#    #+#             */
-/*   Updated: 2025/03/16 18:35:18 by lboumahd         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:43:10 by lboumahd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int	check_v(t_map *map, int x, int y)
 		y = 0;
 		while (y < map->height)
 		{
-			if (y == 0 && !check_char(map->map_tab[y][x], "1 "))
+			if (y == 0 && !check_char(map->map_tab[y][x], "1"))
 				return (0);
-			if (map->map_tab[y][x] == ' ')
+			if (is_space(map->map_tab[y][x]))
 			{
 				if (y > 0 && map->map_tab[y - 1][x] != '1')
 					return (0);
-				while (y < map->height && map->map_tab[y][x] == ' ')
+				while (y < map->height && is_space(map->map_tab[y][x]))
 					y++;
 				if (y < map->height && map->map_tab[y][x] != '1')
 					return (0);
@@ -33,7 +33,7 @@ int	check_v(t_map *map, int x, int y)
 			if (y < map->height)
 				y++;
 		}
-		if (!check_char(map->map_tab[y - 1][x], "1 "))
+		if (!check_char(map->map_tab[y - 1][x], "1"))
 			return (0);
 		x++;
 	}
@@ -47,14 +47,14 @@ int	check_h(t_map *map, int y, int x)
 		x = 0;
 		while (map->map_tab[y][x])
 		{
-			if (x == 0 && !check_char(map->map_tab[y][x], "1 "))
+			if (x == 0 && !check_char(map->map_tab[y][x], "1"))
 				return (0);
-			if (map->map_tab[y][x] == ' ')
+			if (is_space(map->map_tab[y][x]))
 			{
 				if (x > 0 && map->map_tab[y][x - 1] != '1')
 					return (0);
 				while (map->map_tab[y][x]
-					&& map->map_tab[y][x] == ' ')
+					&& is_space(map->map_tab[y][x]))
 					x++;
 				if (map->map_tab[y][x] && map->map_tab[y][x] != '1')
 					return (0);
@@ -62,7 +62,7 @@ int	check_h(t_map *map, int y, int x)
 			if (map->map_tab[y][x])
 				x++;
 		}
-		if (!check_char(map->map_tab[y][x - 1], "1 "))
+		if (!check_char(map->map_tab[y][x - 1], "1"))
 			return (0);
 		y++;
 	}
